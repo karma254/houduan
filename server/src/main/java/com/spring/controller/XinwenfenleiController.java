@@ -6,6 +6,7 @@ import com.spring.service.XinwenfenleiService;
 import dao.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import tk.mybatis.mapper.entity.Example;
 import util.Info;
@@ -25,6 +26,12 @@ public class XinwenfenleiController extends BaseController
     private XinwenfenleiMapper dao;
     @Autowired
     private XinwenfenleiService service;
+
+
+    @GetMapping("hello")
+    public String say(){
+        return json();
+    }
 
     /**
      *  后台列表页

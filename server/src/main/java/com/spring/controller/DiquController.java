@@ -108,22 +108,14 @@ public class DiquController extends BaseController
      * @return
      */
     @RequestMapping("/diquinsert")
-    public String insert()
-    {
+    public String insert(){
         _var = new LinkedHashMap(); // 重置数据
-        String tmp="";
         Diqu post = new Diqu();  // 创建实体类
         // 设置前台提交上来的数据到实体类中
         post.setDiqumingcheng(Request.get("diqumingcheng"));
-
         post.setAddtime(Info.getDateStr());
-    
+        service.insert(post); // 插入数据
 
-        
-
-                service.insert(post); // 插入数据
-        int charuid = post.getId().intValue();
-        
 
         if(isAjax()){
             return jsonResult(post);

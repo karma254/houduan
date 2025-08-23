@@ -29,14 +29,10 @@ public class IndexController extends BaseController{
             
             ArrayList<HashMap> difangmeishilist2 = Query.make("difangmeishi").limit(4).order("id desc").select();
             assign("difangmeishilist2" , difangmeishilist2);
-            
-            
-            ArrayList<HashMap> lvyouxianlulist3 = Query.make("lvyouxianlu").limit(4).order("id desc").select();
-            assign("lvyouxianlulist3" , lvyouxianlulist3);
-            
-            
-            ArrayList<HashMap> xinwenxinxilist4 = Query.make("xinwenxinxi").limit(4).order("id desc").select();
-            assign("xinwenxinxilist4" , xinwenxinxilist4);
+
+
+            ArrayList<HashMap> xinwenxinxilist3 = Query.make("xinwenxinxi").limit(4).order("id desc").select();
+            assign("xinwenxinxilist3" , xinwenxinxilist3);
                             if(isAjax())
         {
             return json();

@@ -3,6 +3,7 @@ package com.spring.controller;
 import com.spring.dao.YonghuMapper;
 import com.spring.entity.Yonghu;
 import com.spring.service.YonghuService;
+import com.spring.util.MD5Util;
 import dao.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,8 @@ public class YonghuController extends BaseController
     @Autowired
     private YonghuService service;
 
+
+    MD5Util md5Util = new MD5Util();
     /**
      *  后台列表页
      *
@@ -138,27 +141,15 @@ public class YonghuController extends BaseController
         Yonghu post = new Yonghu();  // 创建实体类
         // 设置前台提交上来的数据到实体类中
         post.setYonghuming(Request.get("yonghuming"));
-
-        post.setMima(Request.get("mima"));
-
+        post.setMima(md5Util.md5HashTo16(Request.get("mima")));
         post.setXingming(Request.get("xingming"));
-
         post.setXingbie(Request.get("xingbie"));
-
         post.setShouji(Request.get("shouji"));
-
         post.setYouxiang(Request.get("youxiang"));
-
         post.setShenfenzheng(Request.get("shenfenzheng"));
-
         post.setTouxiang(Request.get("touxiang"));
-
         post.setAddtime(Info.getDateStr());
-    
-
-        
-
-                service.insert(post); // 插入数据
+        service.insert(post); // 插入数据
         int charuid = post.getId().intValue();
         
 
@@ -183,7 +174,7 @@ public class YonghuController extends BaseController
         if(!Request.get("yonghuming").equals(""))
         post.setYonghuming(Request.get("yonghuming"));
                 if(!Request.get("mima").equals(""))
-        post.setMima(Request.get("mima"));
+        post.setMima(md5Util.md5HashTo16(Request.get("mima")));
                 if(!Request.get("xingming").equals(""))
         post.setXingming(Request.get("xingming"));
                 if(!Request.get("xingbie").equals(""))
@@ -198,11 +189,9 @@ public class YonghuController extends BaseController
         post.setTouxiang(Request.get("touxiang"));
                 if(!Request.get("addtime").equals(""))
         post.setAddtime(Request.get("addtime"));
-        
         post.setId(Request.getInt("id"));
-                service.update(post); // 更新数据
-        int charuid = post.getId().intValue();
-        
+        service.update(post); // 更新数据
+
         if(isAjax()){
             return jsonResult(post);
         }

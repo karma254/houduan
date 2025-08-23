@@ -3,6 +3,7 @@ package com.spring.controller;
 import com.spring.dao.AdminsMapper;
 import com.spring.entity.Admins;
 import com.spring.service.AdminsService;
+import com.spring.util.MD5Util;
 import dao.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,9 @@ public class AdminsController extends BaseController
     private AdminsMapper dao;
     @Autowired
     private AdminsService service;
+
+    MD5Util md5Util = new MD5Util();
+
 
     /**
      *  后台列表页
@@ -126,17 +130,10 @@ public class AdminsController extends BaseController
         Admins post = new Admins();  // 创建实体类
         // 设置前台提交上来的数据到实体类中
         post.setUsername(Request.get("username"));
-
-        post.setPwd(Request.get("pwd"));
-
+        post.setPwd(md5Util.md5HashTo16(Request.get("pwd")));//16位加密
         post.setAddtime(Info.getDateStr());
-    
+        service.insert(post); // 插入数据
 
-        
-
-                service.insert(post); // 插入数据
-        int charuid = post.getId().intValue();
-        
 
         if(isAjax()){
             return jsonResult(post);
@@ -159,14 +156,13 @@ public class AdminsController extends BaseController
         if(!Request.get("username").equals(""))
         post.setUsername(Request.get("username"));
                 if(!Request.get("pwd").equals(""))
-        post.setPwd(Request.get("pwd"));
+        post.setPwd(md5Util.md5HashTo16(Request.get("pwd")));
                 if(!Request.get("addtime").equals(""))
         post.setAddtime(Request.get("addtime"));
         
         post.setId(Request.getInt("id"));
                 service.update(post); // 更新数据
-        int charuid = post.getId().intValue();
-        
+
         if(isAjax()){
             return jsonResult(post);
         }
@@ -176,7 +172,7 @@ public class AdminsController extends BaseController
         
         return showSuccess("保存成功" , Request.get("referer")); // 弹出保存成功，并跳转到前台提交的 referer 页面
     }
-        /**
+    /**
     *  删除
     */
     @RequestMapping("/admins_delete")

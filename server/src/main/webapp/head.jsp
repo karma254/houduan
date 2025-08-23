@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>旅游信息推荐系统设计与实现</title>
+    <title>旅游行业管理与运行调度系统</title>
     <meta name="force-rendering" contect="WebKit">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta name="renderer" content="webkit">

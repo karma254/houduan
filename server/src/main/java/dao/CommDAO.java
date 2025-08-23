@@ -79,7 +79,6 @@ public class CommDAO {
             st.close();
             System.out.println(sql);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             //e.printStackTrace();
             int code = e.getErrorCode();
             String message = e.getMessage();
@@ -121,7 +120,6 @@ public class CommDAO {
             st.close();
             System.out.println(sql);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             if (sql.equals("show tables"))
                 list = select("select table_name from   INFORMATION_SCHEMA.tables");
             else{
@@ -131,7 +129,6 @@ public class CommDAO {
                 System.err.println("code:"+code);
                 System.err.println("Message:"+message);
             }
-            //e.printStackTrace();
         }
         return list;
     }

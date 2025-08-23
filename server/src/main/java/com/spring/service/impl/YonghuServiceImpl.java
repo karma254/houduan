@@ -20,8 +20,7 @@ public class YonghuServiceImpl extends ServiceBase<Yonghu> implements YonghuServ
     public Yonghu login(String username, String password) {
         Yonghu user = new Yonghu();
         user.setYonghuming(username);
-            user.setMima(password);
-
+        user.setMima(password);
         return this.dao.login(user);
     }
 

@@ -4,6 +4,7 @@ import com.base.ServiceBase;
 import com.spring.dao.AdminsMapper;
 import com.spring.entity.Admins;
 import com.spring.service.AdminsService;
+import com.spring.util.MD5Util;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,8 +21,7 @@ public class AdminsServiceImpl extends ServiceBase<Admins> implements AdminsServ
     public Admins login(String username, String password) {
         Admins user = new Admins();
         user.setUsername(username);
-            user.setPwd(password);
-
+        user.setPwd(password);
         return this.dao.login(user);
     }
 
