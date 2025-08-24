@@ -10,15 +10,37 @@ export default [
     path:"xinwenxinxi",
         name:"IndexxinwenxinxiList",
     component: () => import("@/views/xinwenxinxi/index"),
-    meta: { title:"新闻信息列表"  }
+    meta: { title:"告示信息列表"  }
 },
 {
     path:"xinwenxinxidetail",
         name:"IndexxinwenxinxiDetail",
     props:route=>({id:route.query.id}),
     component: () => import("@/views/xinwenxinxi/webdetail"),
-    meta: { title:"新闻信息详情"  }
+    meta: { title:"告示信息详情"  }
 },
+
+
+
+
+    {
+        path:"dangan",
+        name:"IndexdanganList",
+        component: () => import("@/views/dangan/index"),
+        meta: { title:"档案列表"  }
+    },
+    {
+        path:"dangandetail",
+        name:"IndexxinwenxinxiDetail",
+        props:route=>({id:route.query.id}),
+        component: () => import("@/views/dangan/webdetail"),
+        meta: { title:"档案信息详情"  }
+    },
+
+
+
+
+
 {
     path:"liuyanbanadd",
         name:"IndexliuyanbanAdd",

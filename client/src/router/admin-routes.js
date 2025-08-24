@@ -2,20 +2,6 @@ import store from '@/store';
 
 export default [
 {
-    path: 'pay',
-        name: 'AdminPay',
-    component: () => import('@/views/zhifu/zhifu'),
-    meta: {authLogin: true},
-},
-
-{
-    path: 'shoucangjilu',
-        name: 'Adminshoucangjilu',
-    component: () => import('@/views/shoucangjilu/list'),
-    meta: {authLogin: true},
-},
-
-{
     path:"admins",
         name:"AdminadminsList",
     component: () => import("@/views/admins/list"),
@@ -118,6 +104,41 @@ export default [
     component: () => import("@/views/xinwenxinxi/detail"),
     meta: { title:"告示信息详情",authLogin:true }
 },
+
+
+
+
+    {
+        path:"dangan",
+        name:"AdmindanganList",
+        component: () => import("@/views/dangan/list"),
+        meta: { title:"档案信息列表",authLogin:true }
+    },
+    {
+        path:"danganadd",
+        name:"AdmindanganAdd",
+        component: () => import("@/views/dangan/add"),
+        meta: { title:"添加档案信息",authLogin:true }
+    },
+    {
+        path:"danganupdt",
+        name:"AdmindanganUpdt",
+        props:route=>({id:route.query.id}),
+        component: () => import("@/views/dangan/updt"),
+        meta: { title:"编辑档案信息",authLogin:true }
+    },
+    {
+        path:"dangandetail",
+        props:route=>({id:route.query.id}),
+        name:"AdmindanganDetail",
+        component: () => import("@/views/dangan/detail"),
+        meta: { title:"档案信息详情",authLogin:true }
+    },
+
+
+
+
+
 {
     path:"liuyanban",
         name:"AdminliuyanbanList",

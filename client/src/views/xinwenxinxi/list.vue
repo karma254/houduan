@@ -5,7 +5,7 @@
         <el-card class="box-card">
             <div slot="header" class="clearfix">
                 <span class="title">
-                新闻信息列表
+                告示信息列表
                 </span>
 
             </div>
@@ -67,11 +67,11 @@
             
 
 
-                        
+
             <el-table-column label="操作">
                 <template slot-scope="{row}">
                     <el-button-group>
-                    
+
                                             <el-tooltip content="详情" placement="top">
                         <el-button @click="$goto({path:'/admin/xinwenxinxidetail',query:{id:row.id } })" icon="el-icon-info" type="info" size="mini"></el-button>
                         </el-tooltip>

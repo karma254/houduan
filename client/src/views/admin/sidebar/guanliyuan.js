@@ -99,6 +99,25 @@ export default [
             },
                     ]
     },
+
+
+    {
+        label:'档案管理',
+        to:'',
+        children:[
+            {
+                label:'档案添加',
+                to:'/admin/danganadd',
+            },
+            {
+                label:'档案查询',
+                to:'/admin/dangan',
+            },
+        ]
+    },
+
+
+
         {
         label:'系统管理',
         to:'',

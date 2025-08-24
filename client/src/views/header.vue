@@ -66,6 +66,11 @@
 <router-link to="/liuyanbanadd">我要投诉
 </router-link>
 </li>
+                      <li>
+                        <router-link to="/dangan">档案信息
+                        </router-link>
+                      </li>
+
 <li>
 <router-link to="/yonghuadd">注册
 </router-link>
@@ -81,6 +86,7 @@
 <style type="text/scss" lang="scss">
 
   .header-box {
+
     .header-top {
       padding: 5px;
     }
@@ -241,7 +247,6 @@
 </style>
 <script>
     import api from '@/api';
-    import { extend } from '@/utils/extend';
 
     const setting = require('@/setting');
 

@@ -1,5 +1,5 @@
 <template>
-    
+
                                                 <div class="v-list" v-loading="loading" element-loading-text="加载中">
 
         <el-card class="box-card">
@@ -13,35 +13,35 @@
         <div class="form-search">
             <el-form @submit.prevent.stop :inline="true" size="mini">
                                 <el-form-item label="标题">
-                
+
                     <el-input v-model="search.biaoti"></el-input>
-                    
+
                 </el-form-item>                <el-form-item label="分类">
-                
+
                     <el-select v-model="search.fenlei" ><el-option label="请选择" value=""></el-option>
 <el-option v-for="m in xinwenfenleiList" :value="m.id" :label="m.fenleimingcheng"></el-option>
 </el-select>
-                    
+
                 </el-form-item>                <el-form-item label="添加人">
-                
+
                     <el-input v-model="search.tianjiaren"></el-input>
-                    
+
                 </el-form-item>                <el-form-item label="点击率">
-                
+
                     <el-input type="text" style="width:80px;" v-model="search.dianjilv_start"></el-input>
 -
 <el-input type="text" style="width:80px;" v-model="search.dianjilv_end"></el-input>
-                    
+
                 </el-form-item>                <el-form-item>
                     <el-button type="primary" @click="searchSubmit" icon="el-icon-search">查询</el-button>
                 </el-form-item>
                             </el-form>
         </div>
-        
+
 
         <el-table border :data="list" style="width: 100%" highlight-current-row
                     >
-            
+
             <el-table-column type="index" label="#"></el-table-column> <!-- 序号 -->
 
                         <el-table-column label="标题">
@@ -64,14 +64,14 @@
                 <template slot-scope="{row}">
                     {{  row.dianjilv  }}                </template>
             </el-table-column>
-            
 
 
-                        
+
+
             <el-table-column label="操作">
                 <template slot-scope="{row}">
                     <el-button-group>
-                    
+
                                             <el-tooltip content="详情" placement="top">
                         <el-button @click="$goto({path:'/admin/xinwenxinxidetail',query:{id:row.id } })" icon="el-icon-info" type="info" size="mini"></el-button>
                         </el-tooltip>
@@ -90,7 +90,7 @@
         </el-table>
 
 
-            
+
         <div class="e-pages" style="margin-top: 10px;text-align: center">
             <el-pagination
                     @current-change="loadList"
@@ -114,7 +114,7 @@
     import { extend } from '@/utils/extend';
     import objectDiff from 'objectdiff';
 
-    
+
     /**
      * 后台列表页面
      */
@@ -125,27 +125,27 @@
                 loading:false,
                 list:[],
                 search:{
-                    
+
                                                                 biaoti:'',
-                    
+
                                                                 fenlei:'',
-                    
+
                                                                 tianjiaren:'',
-                    
+
                                                             dianjilv_start:'',
                     dianjilv_end:'',
 
-                    
+
                                                                 neirong:'',
-                    
+
                                     },
                 total:{},
                 page:1, // 当前页
                 pagesize:10, // 页大小
                 totalCount:0, // 总行数
-            
+
                         xinwenfenleiList:[],
-            
+
             }
         },
                 watch: {},
@@ -154,12 +154,12 @@
             searchSubmit(){
                 this.loadList(1);
             },
-            
+
                         sizeChange(e){
                 this.pagesize = e;
                 this.loadList(1);
             },
-            
+
             loadList( page ){
                 // 防止重新点加载列表
                 if(this.loading)return;

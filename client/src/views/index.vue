@@ -5,7 +5,7 @@
             <el-carousel indicator-position="outside" height="420px">
                 <el-carousel-item v-for="item in bhtList" :key="item.id">
                     <div style="background-size: cover" @click="$goto(item.url)"
-                         :style="{'background-image': 'url('+item.image+')',width:'100%', height: '420px'}">
+                         :style="{'background-image': 'url('+item.image+')', width: '80%', height: '400px', margin: '0 auto'}">
                     </div>
                 </el-carousel-item>
             </el-carousel>

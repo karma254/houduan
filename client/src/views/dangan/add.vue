@@ -1,33 +1,47 @@
 <template>
-    <div class="xinwenxinxi-add" v-loading="loading">
+    <div class="dangan-add" v-loading="loading">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
-                                <span class="title"> 添加告示信息</span>
+                                <span class="title"> 添加档案信息</span>
                             </div>
             <div class="form-database-form">
-                
 
-            <el-form :model="form" ref="formModel" label-width="130px" status-icon validate-on-rule-change>
-                                <el-form-item label="标题" prop="biaoti" required :rules="[{required:true, message:'请填写标题'}, {validator:rule.checkRemote, message:'内容重复了', checktype:'insert', module:'xinwenxinxi', col:'biaoti', trigger:'blur'}]">
-                                            <el-input placeholder="输入标题" style="width:450px;" v-model="form.biaoti" />                                    </el-form-item>
 
-                                <el-form-item label="分类" prop="fenlei" required :rules="[{required:true, message:'请填写分类'}]">
-                                            <el-select v-model="form.fenlei" >
-<el-option v-for="m in xinwenfenleiList" :value="m.id" :label="m.fenleimingcheng"></el-option>
-</el-select>                                    </el-form-item>
+              <el-form :model="form" ref="formModel" label-width="130px" status-icon validate-on-rule-change>
+                <!-- 类别  -->
+                <el-form-item label="类别" prop="leibie" required :rules="[{required:true, message:'请选择类别'}]">
+                  <el-select placeholder="选择类别" style="width:450px;" v-model="form.leibie">
+                    <el-option label="导游" value="导游"></el-option>
+                    <el-option label="旅游团" value="旅游团"></el-option>
+                    <el-option label="饭店" value="饭店"></el-option>
+                  </el-select>
+                </el-form-item>
 
-                                <el-form-item label="图片" prop="tupian">
-                                            <e-upload-image v-model="form.tupian"></e-upload-image>                                    </el-form-item>
+                <!-- 关联  -->
+                <el-form-item label="关联" prop="relativeId" required :rules="[{required:true, message:'请选择关联'}]">
+                  <el-input placeholder="关联" style="width:450px;" v-model="form.relativeId" />
+                </el-form-item>
 
-                                <el-form-item label="添加人" prop="tianjiaren">
-                                            <el-input v-model="form.tianjiaren" readonly style="width: 250px;"></el-input>                                    </el-form-item>
+                <!-- 信誉 -->
+                <el-form-item label="信誉" prop="xinyu" required :rules="[{required:true, message:'请选择等级'}]">
+                  <el-select placeholder="选择信誉等级" style="width:450px;" v-model="form.xinyu">
+                    <el-option label="优秀" value="优秀"></el-option>
+                    <el-option label="良好" value="良好"></el-option>
+                    <el-option label="一般" value="一般"></el-option>
+                    <el-option label="较差" value="较差"></el-option>
+                    <el-option label="极差" value="极差"></el-option>
+                  </el-select>
+                </el-form-item>
 
-                                <el-form-item label="点击率" prop="dianjilv" :rules="[{validator:rule.checkNumber, message:'输入一个有效数字'}]">
-                                            <el-input placeholder="输入点击率" style="width:250px;" v-model="form.dianjilv" />                                    </el-form-item>
-
-                                <el-form-item label="内容" prop="neirong">
-                                            <e-editor v-model="form.neirong"></e-editor>                                    </el-form-item>
-
+                <!-- 服务  -->
+                <el-form-item label="服务" prop="fuwu" required :rules="[{required:true, message:'请选择服务状况'}]">
+                  <el-select placeholder="选择服务状况" style="width:450px;" v-model="form.fuwu">
+                    <el-option label="满意" value="满意"></el-option>
+                    <el-option label="基本满意" value="基本满意"></el-option>
+                    <el-option label="不满意" value="不满意"></el-option>
+                    <el-option label="极其不满意" value="极其不满意"></el-option>
+                  </el-select>
+                </el-form-item>
                                 <el-form-item v-if="btnText">
                     <el-button type="primary" @click="submit">{{ btnText }}</el-button>
                 </el-form-item>
@@ -37,11 +51,6 @@
         </el-card>
     </div>
 </template>
-<style type="text/scss" scoped lang="scss">
-.xinwenxinxi-add{
-
-}
-</style>
 <script>
     import api from '@/api'
     import rule from '@/utils/rule'
@@ -49,21 +58,18 @@
 
     
     export default {
-        name:'xinwenxinxi-add',
+        name:'dangan-add',
         data() {
             return {
               rule,
               loading:false,
               form:{
-                biaoti:'',
-                fenlei:'',
-                tupian:'',
-                tianjiaren:this.$store.state.user.session.username,
-                dianjilv:'',
-                neirong:'',
+                leibie:'',
+                relativeId:'',
+                xinyu:'',
+                fuwu:'',
                 },
-
-              xinwenfenleiList:[],
+              danganList:[],
             }
         },
       watch: {},
@@ -85,7 +91,7 @@
                     this.loading = true;
                     var form = this.form;
 
-                    this.$post(api.xinwenxinxi.insert , form).then(res=>{
+                    this.$post(api.dangan.insert , form).then(res=>{
                         this.loading = false;
                         if(res.code == api.code.OK){
                             this.$message.success('添加成功');
@@ -110,7 +116,7 @@
                                 var form = this.form;
                 // 获取模块得数据
                 this.loading = true;
-                this.$post(api.xinwenxinxi.create , {
+                this.$post(api.dangan.create , {
                     id:this.$route.query.id
                 }).then(res=>{
                     this.loading = false;

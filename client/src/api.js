@@ -95,15 +95,22 @@ const api = {
                 weblist:"xinwenxinxilist.do",
                 webdetail:"xinwenxinxidetail.do",
             },
-        youqinglianjie:{
-                list:"youqinglianjie_list.do",
-                insert:"youqinglianjieinsert.do",
-                update:"youqinglianjieupdate.do",
-                delete:"youqinglianjie_delete.do",
-                detail:"youqinglianjie_detail.do",
-                create:"youqinglianjie_add.do",
-                edit:"youqinglianjie_updt.do",
-            },
+
+
+
+
+    dangan:{
+        list:"dangan_list.do",
+        insert:"danganinsert.do",
+        update:"danganupdate.do",
+        delete:"dangan_delete.do",
+        detail:"dangandetail.do",
+        create:"dangan_add.do",
+        edit:"dangan_updt.do",
+    },
+
+
+
         liuyanban:{
                 list:"liuyanban_list.do",
                 insert:"liuyanbaninsert.do",
@@ -142,27 +149,6 @@ const api = {
                 detail:"diqu_detail.do",
                 create:"diqu_add.do",
                 edit:"diqu_updt.do",
-            },
-        lvyouxianlu:{
-                list:"lvyouxianlu_list.do",
-                insert:"lvyouxianluinsert.do",
-                update:"lvyouxianluupdate.do",
-                delete:"lvyouxianlu_delete.do",
-                detail:"lvyouxianlu_detail.do",
-                create:"lvyouxianlu_add.do",
-                edit:"lvyouxianlu_updt.do",
-                weblist:"lvyouxianlulist.do",
-                webdetail:"lvyouxianludetail.do",
-            },
-        yuding:{
-                list:"yuding_list.do",
-                insert:"yudinginsert.do",
-                update:"yudingupdate.do",
-                delete:"yuding_delete.do",
-                detail:"yuding_detail.do",
-                create:"yuding_add.do",
-                edit:"yuding_updt.do",
-                listyudingren:"yuding_list_yudingren.do",
             },
         difangmeishi:{
                 list:"difangmeishi_list.do",
