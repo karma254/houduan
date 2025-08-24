@@ -11,4 +11,8 @@
     </resultMap>
     <sql id="Base_Column_List">
         id,leibie,relativeid,xinyu,fuwu   </sql>
-    </mapper>
+
+    <select id="findByTow" resultType="com.spring.entity.Chengxindangan">
+        select * from chengxindangan where leibie = #{leibie} and relativeid = #{relativeId}
+    </select>
+</mapper>

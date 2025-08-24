@@ -7,6 +7,7 @@ import com.spring.entity.Admins;
 import com.spring.entity.Yonghu;
 import com.spring.service.AdminsService;
 import com.spring.service.YonghuService;
+import com.spring.util.MD5Util;
 import dao.CommDAO;
 import net.jntoo.db.Query;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,8 @@ public class UserController extends BaseController{
     private AdminsService adminsService;
         @Resource
     private YonghuService yonghuService;
+
+        MD5Util md5Util = new MD5Util();
     
     /**
      * 登录页面
@@ -63,78 +66,54 @@ public class UserController extends BaseController{
      * @param cx
      * @return
      */
-    protected String authLoginUser(boolean isAdmin,String username , String pwd,String cx)
-    {
-        if(username == null || "".equals(username) ){
-            return showError( "账号不允许为空" );
-        }
-        if(pwd == null || "".equals(pwd) ){
-            return showError( "密码不允许为空" );
-        }
-        if(cx == null){
-            return showError( "请选中登录类型" );
-        }
-
+    protected String authLoginUser(boolean isAdmin,String username , String pwd,String cx) {
+        if(username == null || username.isEmpty()){return showError( "账号不允许为空" );}
+        if(pwd == null || pwd.isEmpty()){return showError( "密码不允许为空" );}
+        if(cx == null){return showError( "请选中登录类型" );}
         String random;
         // 获取 token方式的验证码值
-        if(isAjax() && request.getParameter("captchToken") != null ){
-            random = DESUtil.decrypt("CaptchControllerPassword" , request.getParameter("captchToken"));
-        }else{
-            random = (String) request.getSession().getAttribute("random");
-        }
+        if(isAjax() && request.getParameter("captchToken") != null ){random = DESUtil.decrypt("CaptchControllerPassword" , request.getParameter("captchToken"));}
+        else{random = (String) request.getSession().getAttribute("random");}
         String pagerandom = request.getParameter("pagerandom") == null ? "" : request.getParameter("pagerandom");
-
-        if (request.getParameter("a") != null && !pagerandom.equals(random)) {
-            return showError("验证码不正确" , 20);
-        }
-
+        if (request.getParameter("a") != null && !pagerandom.equals(random)) {return showError("验证码不正确" , 401);}
         if (cx.equals("管理员")) {
-            Admins user = adminsService.login(username , pwd);
-            if(user == null){
-                return showError("用户名或密码错误");
-            }
-                        session.setAttribute("id" , user.getId());
+            Admins user = adminsService.login(username , md5Util.md5HashTo16(pwd));//16位加密
+            if(user == null){return showError("用户名或密码错误");}
+            session.setAttribute("id" , user.getId());
             session.setAttribute("username" , user.getUsername());
             session.setAttribute("cx" , cx);
             session.setAttribute("login" , cx);
-                        session.setAttribute("username", user.getUsername());
-                        session.setAttribute("pwd", user.getPwd());
-                        session.setAttribute("addtime", user.getAddtime());
-                                    JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(user));
+            session.setAttribute("username", user.getUsername());
+            session.setAttribute("pwd", user.getPwd());
+            session.setAttribute("addtime", user.getAddtime());
+            JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(user));
             jsonObject.put("cx" , session.getAttribute("cx"));
             jsonObject.put("username" , session.getAttribute("username"));
             jsonObject.put("login" , session.getAttribute("login"));
-            assign("session" , jsonObject);
-                    }
+            assign("session" , jsonObject);}
         if (cx.equals("用户")) {
-            Yonghu user = yonghuService.login(username , pwd);
-            if(user == null){
-                return showError("用户名或密码错误");
-            }
-                        session.setAttribute("id" , user.getId());
+            Yonghu user = yonghuService.login(username , md5Util.md5HashTo16(pwd));
+            if(user == null){return showError("用户名或密码错误");}
+            session.setAttribute("id" , user.getId());
             session.setAttribute("username" , user.getYonghuming());
             session.setAttribute("cx" , cx);
             session.setAttribute("login" , cx);
-                        session.setAttribute("yonghuming", user.getYonghuming());
-                        session.setAttribute("mima", user.getMima());
-                        session.setAttribute("xingming", user.getXingming());
-                        session.setAttribute("xingbie", user.getXingbie());
-                        session.setAttribute("shouji", user.getShouji());
-                        session.setAttribute("youxiang", user.getYouxiang());
-                        session.setAttribute("shenfenzheng", user.getShenfenzheng());
-                        session.setAttribute("touxiang", user.getTouxiang());
-                        session.setAttribute("addtime", user.getAddtime());
-                                    JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(user));
+            session.setAttribute("yonghuming", user.getYonghuming());
+            session.setAttribute("mima", user.getMima());
+            session.setAttribute("xingming", user.getXingming());
+            session.setAttribute("xingbie", user.getXingbie());
+            session.setAttribute("shouji", user.getShouji());
+            session.setAttribute("youxiang", user.getYouxiang());
+            session.setAttribute("shenfenzheng", user.getShenfenzheng());
+            session.setAttribute("touxiang", user.getTouxiang());
+            session.setAttribute("addtime", user.getAddtime());
+            JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(user));
             jsonObject.put("cx" , session.getAttribute("cx"));
             jsonObject.put("username" , session.getAttribute("username"));
             jsonObject.put("login" , session.getAttribute("login"));
             assign("session" , jsonObject);
-                    }
-
-        if(session.getAttribute("username") == null){
-            return showError("账号或密码错误");
         }
-
+        if(session.getAttribute("username") == null){return showError("账号或密码错误");}
         String referer = request.getParameter("referer");
         if(referer == null){
             if(isAdmin){
@@ -142,25 +121,14 @@ public class UserController extends BaseController{
             }else{
                 referer = "./";
             }
-        }
-                assign("token",createToken(
-                session.getAttribute("cx"),
-                session.getAttribute("login") ,
-                session.getAttribute("username"),
-                    _var.get("session")
-                )
-        );
-                if(this.isAjax())
-        {
-            return json();
-        }else{
-            return showSuccess("登录成功", referer);
-        }
+        }assign("token",createToken(session.getAttribute("cx"), session.getAttribute("login") , session.getAttribute("username"), _var.get("session")));
+        if(this.isAjax()) {return json();}
+        else{return showSuccess("登录成功", referer);}
     }
     public String createToken(Object cx , Object login, Object username , Object session)
     {
         String SOURCE_STRING = "0123456789ABCDEFGHIGKLMNOPQRSTUVWXYZ";
-        String token = createRandomString(SOURCE_STRING,32);
+        String token = createRandomString(SOURCE_STRING,32);//32位token
 
         // 删除过期token
         new CommDAO().commOper("DELETE FROM token WHERE token_time<'"+ Info.getDateStr()+"'");
@@ -302,26 +270,17 @@ public class UserController extends BaseController{
         return "top";
     }
 
-    /**
-     * 验证登录页面
-     * @return
-     */
+    /**用户登录*/
     @RequestMapping("/authLogin")
-    public String authLogin()
-    {
+    public String authLogin() {
         String username = Request.get("username");
         String pwd  = Request.get("pwd");
         String cx = Request.get("cx");
         return authLoginUser(false , username,pwd,cx);
     }
-
-    /**
-     * 验证后台登录
-     * @return
-     */
+    /**管理员登录*/
     @RequestMapping("/authAdminLogin")
-    public String authAdminLogin()
-    {
+    public String authAdminLogin() {
         String username = Request.get("username");
         String pwd  = Request.get("pwd");
         String cx = Request.get("cx");
@@ -357,18 +316,18 @@ public class UserController extends BaseController{
 
 
         if (cx.equals("管理员")) {
-            Admins user = adminsService.login(username , oldPassword);
+            Admins user = adminsService.login(username , md5Util.md5HashTo16(oldPassword));
             if(user == null){
                 return showError("原密码不正确");
             }
-            adminsService.updatePassword(user.getId() , newPwd);
+            adminsService.updatePassword(user.getId() , md5Util.md5HashTo16(newPwd));
         }
         if (cx.equals("用户")) {
-            Yonghu user = yonghuService.login(username , oldPassword);
+            Yonghu user = yonghuService.login(username , md5Util.md5HashTo16(oldPassword));
             if(user == null){
                 return showError("原密码不正确");
             }
-            yonghuService.updatePassword(user.getId() , newPwd);
+            yonghuService.updatePassword(user.getId() , md5Util.md5HashTo16(newPwd));
         }
         return showSuccess("修改密码成功" , "./mod.do");
     }

@@ -3,7 +3,9 @@ package com.spring.controller;
 import com.spring.dao.ChengxindanganMapper;
 import com.spring.entity.Chengxindangan;
 import com.spring.entity.Diqu;
+import com.spring.entity.Xinwenxinxi;
 import com.spring.service.ChengxindanganService;
+import dao.CommDAO;
 import dao.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,12 @@ public class ChengxindanganController extends BaseController{
     private ChengxindanganMapper dao;
     @Autowired
     private ChengxindanganService service;
+
+
+    boolean findByTwo(String leibie, String relativeId){
+        Chengxindangan record = service.findByTow(leibie,relativeId);
+        return record != null;
+    }//true为有记录
 
 
     /**
@@ -59,20 +67,21 @@ public class ChengxindanganController extends BaseController{
         _var = new LinkedHashMap(); // 重置数据
         String where = " ";
         // 以下也是一样的操作，判断是否符合条件，符合则写入sql 语句
-        if(!Request.get("leibie").equals("")) {
-            where += " AND leibie LIKE '%"+Request.get("leibie")+"%' ";
+        if(!Request.get("leibie").isEmpty()) {
+            where += " AND leibie = '"+Request.get("leibie")+"' ";
         }
-        if(!Request.get("ralativeId").equals("")) {
-            where += " AND ralativeid ='"+Request.get("ralativeId")+"' ";
+        if(!Request.get("relativeId").isEmpty()) {
+            where += " AND relativeid ='"+Request.get("relativeId")+"' ";
         }
-        if(!Request.get("xinyu").equals("")) {
-            where += " AND xinyu LIKE '%"+Request.get("xinyu")+"%' ";
+        if(!Request.get("xinyu").isEmpty()) {
+            where += " AND xinyu = '"+Request.get("xinyu")+"' ";
         }
-        if(!Request.get("fuwu").equals("")) {
-            where += " AND fuwu LIKE '%"+Request.get("fuwu")+"%' ";
+        if(!Request.get("fuwu").isEmpty()) {
+            where += " AND fuwu = '"+Request.get("fuwu")+"' ";
         }
         return where;
     }
+
 
     @RequestMapping("/dangan_add")
     public String add() {
@@ -96,6 +105,11 @@ public class ChengxindanganController extends BaseController{
     @RequestMapping("/danganinsert")
     public String insert() {
         _var = new LinkedHashMap(); // 重置数据
+
+        if(findByTwo(Request.get("leibie"),Request.get("relativeId"))){
+           return showError("信息已存在");//有记录就不能添加
+        }
+
         Chengxindangan post = new Chengxindangan();  // 创建实体类
         // 设置前台提交上来的数据到实体类中
         post.setLeibie(Request.get("leibie"));
@@ -113,10 +127,6 @@ public class ChengxindanganController extends BaseController{
         _var = new LinkedHashMap(); // 重置数据
         Chengxindangan post = new Chengxindangan();  // 创建实体类
         // 将前台表单数据填充到实体类
-        if(!Request.get("leibie").isEmpty())
-            post.setLeibie(Request.get("leibie"));
-        if(!Request.get("relativeId").isEmpty())
-            post.setRelativeId(Request.get("relativeId"));
         if(!Request.get("xinyu").isEmpty())
             post.setXinyu(Request.get("xinyu"));
         if(!Request.get("fuwu").isEmpty())
@@ -127,19 +137,8 @@ public class ChengxindanganController extends BaseController{
         return showSuccess("保存成功" , Request.get("referer")); // 弹出保存成功，并跳转到前台提交的 referer 页面
     }
 
-    /**
-     *  后台详情
-     */
-    @RequestMapping("/dangan_detail")
-    public String detail() {
-        _var = new LinkedHashMap(); // 重置数据
-        int id = Request.getInt("id");
-        Chengxindangan map = service.find(id);  // 根据前台url 参数中的id获取行数据
-        assign("map" , map);  // 把数据写到前台
-        return json();   // 将数据写给前端
-    }
 
-    /**前台详情*/
+    /**详情*/
     @RequestMapping("/dangandetail")
     public String detailweb() {
         _var = new LinkedHashMap(); // 重置数据

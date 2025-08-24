@@ -10,26 +10,14 @@ import tk.mybatis.mapper.provider.SqlServerProvider;
  * Mapper 基本类接口，提供通用CRUD
  * @param <T>
  */
-public interface MapperBase<T> extends Mapper<T>
-{
-
-    /**
-     * 插入数据库，`null`值也会插入，不会使用列的默认值
-     *
-     * @param record
-     * @return
-     */
+public interface MapperBase<T> extends Mapper<T> {
+    /**插入数据库，`null`值也会插入，不会使用列的默认值*/
     @Options(useGeneratedKeys = true, keyProperty = "id")
     @InsertProvider(type = SqlServerProvider.class, method = "dynamicSQL")
     @Override
     int insert(T record);
 
-    /**
-     * 插入数据库，`null`值也会插入，不会使用列的默认值
-     *
-     * @param record
-     * @return
-     */
+    /**插入数据库，`null`值也会插入，不会使用列的默认值*/
     @Options(useGeneratedKeys = true, keyProperty = "id")
     @InsertProvider(type = SqlServerProvider.class, method = "dynamicSQL")
     @Override

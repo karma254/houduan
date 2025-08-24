@@ -18,8 +18,6 @@ public class UploadController extends BaseController{
     /**
      * 上传文件
      * @param fujian
-     * @return
-     * @throws Exception
      */
     @RequestMapping(value = "/upload_re")
     public String Upload(MultipartFile fujian) throws Exception

@@ -16,4 +16,9 @@ public class ChengxindanganServiceImpl extends ServiceBase<Chengxindangan> imple
     protected ChengxindanganMapper getDao() {
         return dao;
     }
+
+    @Override
+    public Chengxindangan findByTow(String leibie, String relativeId) {
+        return this.dao.findByTow(leibie,relativeId);
+    }
 }

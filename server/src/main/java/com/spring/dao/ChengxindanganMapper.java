@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ChengxindanganMapper extends MapperBase<Chengxindangan> {
+    Chengxindangan findByTow(String leibie, String relativeId) ;
 }

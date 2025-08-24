@@ -184,8 +184,7 @@ public class XinwenxinxiController extends BaseController
         Xinwenxinxi mmm = service.find(id);
         assign("mmm" , mmm);
         assign("updtself" , 0);
-
-                    assign("xinwenfenleiList" , new CommDAO().select("SELECT * FROM xinwenfenlei ORDER BY id desc"));
+        assign("xinwenfenleiList" , new CommDAO().select("SELECT * FROM xinwenfenlei ORDER BY id desc"));
         return json();   // 将数据写给前端
     }
     /**
