@@ -131,40 +131,43 @@ import objectDiff from 'objectdiff';
 export default {
   data() {
     return {
-      loading:false,
-      list:[],
-      search:{
-        leibie:'',
-        relativeId:'',
-        xinyu:'',
-        fuwu:'',
+      loading: false,
+      list: [],
+      search: {
+        leibie: '',
+        relativeId: '',
+        xinyu: '',
+        fuwu: '',
       },
-      total:{},
-      page:1, // 当前页
-      pagesize:10, // 页大小
-      totalCount:0, // 总行数
-      danganList:[],
+      total: {},
+      page: 1, // 当前页
+      pagesize: 10, // 页大小
+      totalCount: 0, // 总行数
+      danganList: [],
     }
   },
   watch: {},
   computed: {},
   methods: {
-    searchSubmit(){
+    searchSubmit() {
       this.loadList(1);
     },
 
-    sizeChange(e){
+    sizeChange(e) {
       this.pagesize = e;
       this.loadList(1);
     },
 
-    loadList( page ){
-      // 防止重新点加载列表
-      if(this.loading)return;
+    loadList(page) {
+      // 防止重复加载列表
+      if (this.loading) return;
       this.loading = true;
       this.page = page;
       // 筛选条件
-      var filter = extend(true, {}, this.search, {page:page+"", pagesize: this.pagesize+""});
+      var filter = extend(true, {}, this.search, {
+        page: page + "",
+        pagesize: this.pagesize + ""
+      });
       var diff = objectDiff.diff(filter, this.$route.query);
       if (diff.changed != 'equal') { // 筛选的条件不一致则更新链接
         this.$router.push({  // 更新query
@@ -172,39 +175,56 @@ export default {
           query: filter
         });
       }
-      this.$post(api.dangan.list , filter).then(res=>{
+      this.$post(api.dangan.list, filter).then(res => {
         this.loading = false;
-        if(res.code == api.code.OK)
-        {
-          extend(this , res.data);
-        }else{
+        if (res.code == api.code.OK) {
+          extend(this, res.data);
+        } else {
           this.$message.error(res.msg);
         }
-      }).catch(err=>{
+      }).catch(err => {
         this.loading = false;
         this.$message.error(err.message);
       });
     },
+
+    // 获取URL参数并初始化查询条件
+    initSearchFromParams() {
+      const query = this.$route.query;
+      // 从路由参数中获取类别和关联参数
+      if (query.leibie) {
+        this.search.leibie = query.leibie;
+      }
+      if (query.relativeId) {
+        this.search.relativeId = query.relativeId;
+      }
+      // 处理分页参数
+      if (query.page) {
+        this.page = Math.floor(query.page);
+      }
+      if (query.pagesize) {
+        this.pagesize = Math.floor(query.pagesize);
+      }
+
+      // 如果有类别或关联参数，自动执行查询
+      if (query.leibie || query.relativeId) {
+        this.loadList(this.page);
+      }
+      //没有则把类别设置为所有
+      if (query.leibie==null && query.relativeId==null) {
+        query.leibie = "所有"
+        this.loadList(this.page);
+      }
+    }
   },
-  beforeRouteUpdate(to,form,next){
-    extend(this.search , to.query)
+  beforeRouteUpdate(to, from, next) {
+    extend(this.search, to.query)
     this.loadList(1);
     next();
   },
   created() {
-    var search = extend(this.search , this.$route.query)
-    if(search.page)
-    {
-      this.page = Math.floor(this.$route.query.page)
-      delete search.page
-    }
-    if(search.pagesize)
-    {
-      this.pagesize = Math.floor(this.$route.query.pagesize)
-      delete search.pagesize
-    }
-
-    this.loadList(1);
+    // 初始化查询条件并自动执行查询（如果有参数）
+    this.initSearchFromParams();
   },
   mounted() {
   },

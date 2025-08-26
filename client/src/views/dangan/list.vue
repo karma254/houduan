@@ -1,14 +1,11 @@
 <template>
-
   <div class="v-list" v-loading="loading" element-loading-text="加载中">
-
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-                <span class="title">
-                档案信息列表
-                </span>
+        <span class="title">档案信息列表</span>
       </div>
-      <!-- 搜索 -->
+
+      <!-- 搜索区域 -->
       <div class="form-search">
         <el-form @submit.prevent.stop :inline="true" size="mini">
           <el-form-item label="类别">
@@ -21,7 +18,7 @@
           </el-form-item>
 
           <el-form-item label="关联">
-            <el-input v-model="search.relativeId" ></el-input>
+            <el-input v-model="search.relativeId"></el-input>
           </el-form-item>
 
           <el-form-item label="信誉">
@@ -51,63 +48,44 @@
         </el-form>
       </div>
 
-
+      <!-- 数据表格 -->
       <el-table border :data="list" style="width: 100%" highlight-current-row>
-
-        <el-table-column type="index" label="#"></el-table-column> <!-- 序号 -->
+        <el-table-column type="index" label="#"></el-table-column>
 
         <el-table-column label="类别">
-          <template slot-scope="{row}">
-            {{  row.leibie  }}
-          </template>
+          <template slot-scope="{row}">{{ row.leibie }}</template>
         </el-table-column>
-
 
         <el-table-column label="关联">
-          <template slot-scope="{row}">
-            {{  row.relativeId  }}
-          </template>
+          <template slot-scope="{row}">{{ row.relativeId }}</template>
         </el-table-column>
-
 
         <el-table-column label="信誉">
-          <template slot-scope="{row}">
-            {{  row.xinyu  }}
-          </template>
+          <template slot-scope="{row}">{{ row.xinyu }}</template>
         </el-table-column>
-
 
         <el-table-column label="服务">
-          <template slot-scope="{row}">
-            {{  row.fuwu  }}
-          </template>
+          <template slot-scope="{row}">{{ row.fuwu }}</template>
         </el-table-column>
-
-
 
         <el-table-column label="操作">
           <template slot-scope="{row}">
             <el-button-group>
-
               <el-tooltip content="详情" placement="top">
                 <el-button @click="$goto({path:'/admin/dangandetail',query:{id:row.id } })" icon="el-icon-info" type="info" size="mini"></el-button>
               </el-tooltip>
               <el-tooltip content="编辑" placement="top">
-                <el-button icon="el-icon-edit" @click="$goto({path:'/admin/danganupdt',query:{id:row.id } })"
-                           type="warning" size="mini"></el-button>
+                <el-button icon="el-icon-edit" @click="$goto({path:'/admin/danganupdt',query:{id:row.id } })" type="warning" size="mini"></el-button>
               </el-tooltip>
               <el-tooltip content="删除" placement="top">
-                <el-button icon="el-icon-delete" type="danger" size="mini" @click="deleteItem(row)">
-
-                </el-button>
+                <el-button icon="el-icon-delete" type="danger" size="mini" @click="deleteItem(row)"></el-button>
               </el-tooltip>
             </el-button-group>
           </template>
         </el-table-column>
       </el-table>
 
-
-
+      <!-- 分页控件 -->
       <div class="e-pages" style="margin-top: 10px;text-align: center">
         <el-pagination
             @current-change="loadList"
@@ -118,125 +96,163 @@
             :total="totalCount">
         </el-pagination>
       </div>
-
     </el-card>
   </div>
 </template>
-<style type="text/scss" scoped lang="scss">
 
+<style type="text/scss" scoped lang="scss">
+/* 可在此添加自定义样式 */
 </style>
+
 <script>
 import api from '@/api';
-import { remove  } from '@/utils/utils';
+import { remove } from '@/utils/utils';
 import { extend } from '@/utils/extend';
 import objectDiff from 'objectdiff';
 
-
 /**
- * 后台列表页面
+ * 后台档案列表页面，支持URL参数自动查询
  */
 export default {
   data() {
     return {
-      loading:false,
-      list:[],
-      search:{
-        leibie:'',
-        relativeId:'',
-        xinyu:'',
-        fuwu:'',
+      loading: false,
+      list: [],
+      search: {
+        leibie: '',
+        relativeId: '',
+        xinyu: '',
+        fuwu: '',
       },
-      total:{},
-      page:1, // 当前页
-      pagesize:10, // 页大小
-      totalCount:0, // 总行数
-      danganList:[],
+      total: {},
+      page: 1, // 当前页
+      pagesize: 10, // 页大小
+      totalCount: 0, // 总行数
+      danganList: [],
     }
   },
   watch: {},
   computed: {},
   methods: {
-    searchSubmit(){
+    // 手动查询提交
+    searchSubmit() {
       this.loadList(1);
     },
 
-    sizeChange(e){
+    // 分页大小改变
+    sizeChange(e) {
       this.pagesize = e;
       this.loadList(1);
     },
 
-    loadList( page ){
-      // 防止重新点加载列表
-      if(this.loading)return;
+    // 加载列表数据
+    loadList(page) {
+      // 防止重复加载
+      if (this.loading) return;
       this.loading = true;
       this.page = page;
-      // 筛选条件
-      var filter = extend(true, {}, this.search, {page:page+"", pagesize: this.pagesize+""});
-      var diff = objectDiff.diff(filter, this.$route.query);
-      if (diff.changed != 'equal') { // 筛选的条件不一致则更新链接
-        this.$router.push({  // 更新query
+
+      // 构建筛选条件
+      const filter = extend(true, {}, this.search, {
+        page: page + "",
+        pagesize: this.pagesize + ""
+      });
+
+      // 比较筛选条件与路由参数，不一致则更新URL
+      const diff = objectDiff.diff(filter, this.$route.query);
+      if (diff.changed !== 'equal') {
+        this.$router.push({
           path: this.$route.path,
           query: filter
         });
       }
-      this.$post(api.dangan.list , filter).then(res=>{
+
+      // 发送请求获取数据
+      this.$post(api.dangan.list, filter).then(res => {
         this.loading = false;
-        if(res.code == api.code.OK)
-        {
-          extend(this , res.data);
-        }else{
+        if (res.code === api.code.OK) {
+          extend(this, res.data);
+        } else {
           this.$message.error(res.msg);
         }
-      }).catch(err=>{
+      }).catch(err => {
         this.loading = false;
         this.$message.error(err.message);
       });
     },
-    // 删除某行方法
-    deleteItem( row ){
-      this.$confirm('确定删除数据？' , '提示',{ // 弹出 确认框提示是否要删除
-        type: 'warning'
-      }).then(()=>{// 确定操作
 
-        this.loading = true; // 滚动条
-        this.$post(api.dangan.delete , {// 提交后台
-          id:row.id
-        }).then(res=>{
+    // 删除项目
+    deleteItem(row) {
+      this.$confirm('确定删除数据？', '提示', {
+        type: 'warning'
+      }).then(() => {
+        this.loading = true;
+        this.$post(api.dangan.delete, {
+          id: row.id
+        }).then(res => {
           this.loading = false;
-          if(res.code != api.code.OK){
+          if (res.code !== api.code.OK) {
             this.$message.error(res.msg);
-          }else{
-            remove(this.list , row);
+          } else {
+            remove(this.list, row);
           }
-        }).catch(err=>{ // 访问网络错误
+        }).catch(err => {
           this.loading = false;
-          this.$message.error(err.message)
-        })
-      }).catch(()=>{
-        // 取消操作
-      })
+          this.$message.error(err.message);
+        });
+      }).catch(() => {
+        // 取消删除操作
+      });
     },
 
+    // 从URL参数初始化查询条件
+    initSearchFromParams() {
+      const query = this.$route.query;
+
+      // 处理类别和关联参数
+      if (query.leibie) {
+        this.search.leibie = query.leibie;
+      }
+      if (query.relativeId) {
+        this.search.relativeId = query.relativeId;
+      }
+
+      // 处理其他查询参数
+      if (query.xinyu) {
+        this.search.xinyu = query.xinyu;
+      }
+      if (query.fuwu) {
+        this.search.fuwu = query.fuwu;
+      }
+
+      // 处理分页参数
+      if (query.page) {
+        this.page = Math.floor(query.page);
+      }
+      if (query.pagesize) {
+        this.pagesize = Math.floor(query.pagesize);
+      }
+
+      // 如果有类别或关联参数，自动执行查询
+      if (query.leibie || query.relativeId) {
+        this.loadList(this.page);
+      }
+      //没有则把类别设置为所有
+      if (query.leibie==null && query.relativeId==null) {
+        query.leibie = "所有"
+        this.loadList(this.page);
+      }
+    }
   },
-  beforeRouteUpdate(to,form,next){
-    extend(this.search , to.query)
+  // 路由参数更新时重新加载数据
+  beforeRouteUpdate(to, from, next) {
+    extend(this.search, to.query);
     this.loadList(1);
     next();
   },
+  // 组件创建时初始化查询
   created() {
-    var search = extend(this.search , this.$route.query)
-    if(search.page)
-    {
-      this.page = Math.floor(this.$route.query.page)
-      delete search.page
-    }
-    if(search.pagesize)
-    {
-      this.pagesize = Math.floor(this.$route.query.pagesize)
-      delete search.pagesize
-    }
-
-    this.loadList(1);
+    this.initSearchFromParams();
   },
   mounted() {
   },
