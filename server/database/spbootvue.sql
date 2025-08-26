@@ -154,3 +154,12 @@ create table yonghu
 )
     comment '用户' charset = utf8mb3;
 
+create table chengxindangan
+(
+    id         int auto_increment
+        primary key,
+    leibie     varchar(10)  not null,
+    relativeid varchar(20)  not null,
+    xinyu      varchar(255) not null,
+    fuwu       varchar(255) not null
+);
