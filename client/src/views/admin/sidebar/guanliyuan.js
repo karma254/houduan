@@ -56,24 +56,24 @@ export default [
                     ]
     },
         {
-        label:'地方美食管理',
+        label:'地方饭店管理',
         to:'',
         children:[
                         {
-                label:'美食分类添加',
-                to:'/admin/meishifenleiadd',
+                label:'饭店分类添加',
+                to:'/admin/fandianfenleiadd',
             },
                         {
-                label:'美食分类查询',
-                to:'/admin/meishifenlei',
+                label:'饭店分类查询',
+                to:'/admin/fandianfenlei',
             },
                         {
-                label:'地方美食添加',
-                to:'/admin/difangmeishiadd',
+                label:'地方饭店添加',
+                to:'/admin/difangfandianadd',
             },
                         {
-                label:'地方美食查询',
-                to:'/admin/difangmeishi',
+                label:'地方饭店查询',
+                to:'/admin/difangfandian',
             },
                     ]
     },

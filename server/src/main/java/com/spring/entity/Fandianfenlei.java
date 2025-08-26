@@ -6,8 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-@Table(name = "meishifenlei")
-public class Meishifenlei implements Serializable {
+@Table(name = "fandianfenlei")
+public class Fandianfenlei implements Serializable {
     @GeneratedValue(generator = "JDBC") // 自增的主键映射
     @Id
     @Column(name = "id",insertable=false)

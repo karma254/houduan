@@ -26,9 +26,9 @@
                                 <el-form-item label="开放时间" prop="kaifangshijian" required :rules="[{required:true, message:'请填写开放时间'}]">
                                             <el-input placeholder="输入开放时间" style="width:450px;" v-model="form.kaifangshijian" />                                    </el-form-item>
 
-                                <el-form-item label="附近美食" prop="fujinmeishi">
-                                            <el-select v-model="form.fujinmeishi"  multiple="multiple" >
-<el-option v-for="m in difangmeishiList" :value="m.mingcheng" :label="m.mingcheng"></el-option>
+                                <el-form-item label="附近饭店" prop="fujinfandian">
+                                            <el-select v-model="form.fujinfandian"  multiple="multiple" >
+<el-option v-for="m in difangfandianList" :value="m.mingcheng" :label="m.mingcheng"></el-option>
 </el-select>                                    </el-form-item>
 
                                 <el-form-item label="地址" prop="dizhi" required :rules="[{required:true, message:'请填写地址'}]">
@@ -72,7 +72,7 @@ jingdianbianhao:rule.getID(),
                     suoshudiqu:'',
                     tupian:'',
                     kaifangshijian:'',
-                    fujinmeishi:'',
+                    fujinfandian:'',
                     dizhi:'',
                     piaojia:'',
                     miaoshu:'',
@@ -81,7 +81,7 @@ jingdianbianhao:rule.getID(),
                 },
 
                         diquList:[],
-                        difangmeishiList:[],
+                        difangfandianList:[],
             
             }
         },

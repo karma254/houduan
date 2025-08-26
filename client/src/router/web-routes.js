@@ -61,16 +61,16 @@ export default [
     meta: { title:"景点信息详情"  }
 },
 {
-    path:"difangmeishi",
-        name:"IndexdifangmeishiList",
-    component: () => import("@/views/difangmeishi/index"),
-    meta: { title:"地方美食列表"  }
+    path:"difangfandian",
+        name:"IndexdifangfandianList",
+    component: () => import("@/views/difangfandian/index"),
+    meta: { title:"地方饭店列表"  }
 },
 {
-    path:"difangmeishidetail",
-        name:"IndexdifangmeishiDetail",
+    path:"difangfandiandetail",
+        name:"IndexdifangfandianDetail",
     props:route=>({id:route.query.id}),
-    component: () => import("@/views/difangmeishi/webdetail"),
-    meta: { title:"地方美食详情"  }
+    component: () => import("@/views/difangfandian/webdetail"),
+    meta: { title:"地方饭店详情"  }
 },
 ]

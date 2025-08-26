@@ -3,7 +3,7 @@
         <div>
             <e-container>
                 <div style="margin:10px 0 0 0">
-                    <e-module-model-box title="美食列表">
+                    <e-module-model-box title="饭店列表">
 
                         <form action="javascript:;" @submit="searchSubmit" class="form-search">
                             <table class="jd-search">
@@ -19,7 +19,7 @@
                                                :class="{active:!search.fenlei}">全部</a>
 
                                             <a href="javascript:;"
-                                               v-for="r in mapmeishifenlei5"
+                                               v-for="r in mapfandianfenlei5"
                                                @click="selectRadio('fenlei',r.id)"
                                                :class="{active:search.fenlei == r.id}" v-text="r.fenleimingcheng">
 
@@ -54,11 +54,11 @@
                             <el-col v-for="r in list" :md="6" :key="r.id" style="margin-bottom: 20px">
                                 <e-module-products
                                         :title="r.mingcheng"
-                                        :price="r.jiage" :description="r.meishijianjie"
+                                        :price="r.jiage" :description="r.fandianjianjie"
                                         :image="r.tupian"
                                         :image-height="100"
                                         :is-scale="true"
-                                        :to="'/difangmeishidetail?id='+r.id">
+                                        :to="'/difangfandiandetail?id='+r.id">
 
                                 </e-module-products>
                             </el-col>
@@ -102,7 +102,7 @@
                 search: {
 
 
-                    meishibianhao: '',
+                    fandianbianhao: '',
 
                     mingcheng: '',
 
@@ -115,7 +115,7 @@
                     jiage_start: '',
                     jiage_end: '',
 
-                    meishijianjie: '',
+                    fandianjianjie: '',
 
                     addtime: '',
 
@@ -125,7 +125,7 @@
                 totalCount: 0, // 总行数
                 total: {},
 
-                mapmeishifenlei5: [],
+                mapfandianfenlei5: [],
             }
         },
         watch: {},
@@ -148,7 +148,7 @@
                         query: filter
                     });
                 }
-                this.$post(api.difangmeishi.weblist, filter).then(res => {
+                this.$post(api.difangfandian.weblist, filter).then(res => {
                     this.loading = false;
                     if (res.code == api.code.OK) {
                         extend(this, res.data);

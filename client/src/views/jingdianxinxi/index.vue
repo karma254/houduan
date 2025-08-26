@@ -110,7 +110,7 @@
                     
                                                                 kaifangshijian:'',
                     
-                                                                fujinmeishi:'',
+                                                                fujinfandian:'',
                     
                                                                 dizhi:'',
                     

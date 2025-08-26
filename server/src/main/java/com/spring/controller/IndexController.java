@@ -27,8 +27,8 @@ public class IndexController extends BaseController{
             assign("jingdianxinxilist1" , jingdianxinxilist1);
             
             
-            ArrayList<HashMap> difangmeishilist2 = Query.make("difangmeishi").limit(4).order("id desc").select();
-            assign("difangmeishilist2" , difangmeishilist2);
+            ArrayList<HashMap> difangfandianlist2 = Query.make("difangfandian").limit(4).order("id desc").select();
+            assign("difangfandianlist2" , difangfandianlist2);
 
 
             ArrayList<HashMap> xinwenxinxilist3 = Query.make("xinwenxinxi").limit(4).order("id desc").select();

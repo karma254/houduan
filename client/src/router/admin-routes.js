@@ -236,48 +236,48 @@ export default [
     meta: { title:"编辑地区",authLogin:true }
 },
 {
-    path:"difangmeishi",
-        name:"AdmindifangmeishiList",
-    component: () => import("@/views/difangmeishi/list"),
-    meta: { title:"地方美食列表",authLogin:true }
+    path:"difangfandian",
+        name:"AdmindifangfandianList",
+    component: () => import("@/views/difangfandian/list"),
+    meta: { title:"地方饭店列表",authLogin:true }
 },
 {
-    path:"difangmeishiadd",
-        name:"AdmindifangmeishiAdd",
-    component: () => import("@/views/difangmeishi/add"),
-    meta: { title:"添加地方美食",authLogin:true }
+    path:"difangfandianadd",
+        name:"AdmindifangfandianAdd",
+    component: () => import("@/views/difangfandian/add"),
+    meta: { title:"添加地方饭店",authLogin:true }
 },
 {
-    path:"difangmeishiupdt",
-        name:"AdmindifangmeishiUpdt",
+    path:"difangfandianupdt",
+        name:"AdmindifangfandianUpdt",
     props:route=>({id:route.query.id}),
-    component: () => import("@/views/difangmeishi/updt"),
-    meta: { title:"编辑地方美食",authLogin:true }
+    component: () => import("@/views/difangfandian/updt"),
+    meta: { title:"编辑地方饭店",authLogin:true }
 },
 {
-    path:"difangmeishidetail",
+    path:"difangfandiandetail",
         props:route=>({id:route.query.id}),
-    name:"AdmindifangmeishiDetail",
-    component: () => import("@/views/difangmeishi/detail"),
-    meta: { title:"地方美食详情",authLogin:true }
+    name:"AdmindifangfandianDetail",
+    component: () => import("@/views/difangfandian/detail"),
+    meta: { title:"地方饭店详情",authLogin:true }
 },
 {
-    path:"meishifenlei",
-        name:"AdminmeishifenleiList",
-    component: () => import("@/views/meishifenlei/list"),
-    meta: { title:"美食分类列表",authLogin:true }
+    path:"fandianfenlei",
+        name:"AdminfandianfenleiList",
+    component: () => import("@/views/fandianfenlei/list"),
+    meta: { title:"饭店分类列表",authLogin:true }
 },
 {
-    path:"meishifenleiadd",
-        name:"AdminmeishifenleiAdd",
-    component: () => import("@/views/meishifenlei/add"),
-    meta: { title:"添加美食分类",authLogin:true }
+    path:"fandianfenleiadd",
+        name:"AdminfandianfenleiAdd",
+    component: () => import("@/views/fandianfenlei/add"),
+    meta: { title:"添加饭店分类",authLogin:true }
 },
 {
-    path:"meishifenleiupdt",
-        name:"AdminmeishifenleiUpdt",
+    path:"fandianfenleiupdt",
+        name:"AdminfandianfenleiUpdt",
     props:route=>({id:route.query.id}),
-    component: () => import("@/views/meishifenlei/updt"),
-    meta: { title:"编辑美食分类",authLogin:true }
+    component: () => import("@/views/fandianfenlei/updt"),
+    meta: { title:"编辑饭店分类",authLogin:true }
 },
 ]

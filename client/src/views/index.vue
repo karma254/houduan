@@ -40,16 +40,16 @@
         <div>
             <e-container>
                 <div style="margin:10px 0 0 0">
-                    <e-module-model-box title="地方美食">
+                    <e-module-model-box title="地方饭店">
                         <el-row :gutter="30">
-                            <el-col v-for="r in difangmeishilist2" :md="6" :key="r.id" style="margin-bottom: 20px">
+                            <el-col v-for="r in difangfandianlist2" :md="6" :key="r.id" style="margin-bottom: 20px">
                                 <e-module-products
                                         :title="r.mingcheng"
-                                        :price="r.jiage" :description="r.meishijianjie"
+                                        :price="r.jiage" :description="r.fandianjianjie"
                                         :image="r.tupian"
                                         :image-height="100"
                                         :is-scale="true"
-                                        :to="'/difangmeishidetail?id='+r.id">
+                                        :to="'/difangfandiandetail?id='+r.id">
 
                                 </e-module-products>
                             </el-col>
@@ -106,7 +106,7 @@
                 loading: false,
                 bhtList: [],
                 jingdianxinxilist1: [],
-                difangmeishilist2: [],
+                difangfandianlist2: [],
                 xinwenxinxilist3: [],
             }
         },

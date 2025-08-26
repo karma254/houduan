@@ -58,9 +58,9 @@
                 <template slot-scope="{row}">
                     {{  row.kaifangshijian  }}                </template>
             </el-table-column>
-                        <el-table-column label="附近美食">
+                        <el-table-column label="附近饭店">
                 <template slot-scope="{row}">
-                    {{  row.fujinmeishi  }}                </template>
+                    {{  row.fujinfandian  }}                </template>
             </el-table-column>
                         <el-table-column label="地址">
                 <template slot-scope="{row}">

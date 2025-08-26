@@ -1,8 +1,8 @@
 package com.spring.controller;
 
-import com.spring.dao.DifangmeishiMapper;
-import com.spring.entity.Difangmeishi;
-import com.spring.service.DifangmeishiService;
+import com.spring.dao.DifangfandianMapper;
+import com.spring.entity.Difangfandian;
+import com.spring.service.DifangfandianService;
 import dao.CommDAO;
 import dao.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +18,20 @@ import java.util.List;
 
 
 /**
- * 地方美食 */
+ * 地方饭店 */
 @Controller
-public class DifangmeishiController extends BaseController
+public class DifangfandianController extends BaseController
 {
     @Autowired
-    private DifangmeishiMapper dao;
+    private DifangfandianMapper dao;
     @Autowired
-    private DifangmeishiService service;
+    private DifangfandianService service;
 
     /**
      *  后台列表页
      *
      */
-    @RequestMapping("/difangmeishi_list")
+    @RequestMapping("/difangfandian_list")
     public String list()
     {
 
@@ -43,7 +43,7 @@ public class DifangmeishiController extends BaseController
         String order = Request.get("order" , "id"); // 获取前台提交的URL参数 order  如果没有则设置为id
         String sort  = Request.get("sort" , "desc"); // 获取前台提交的URL参数 sort  如果没有则设置为desc
         int    pagesize = Request.getInt("pagesize" , 12); // 获取前台一页多少行数据
-        Example example = new Example(Difangmeishi.class); //  创建一个扩展搜索类
+        Example example = new Example(Difangfandian.class); //  创建一个扩展搜索类
         Example.Criteria criteria = example.createCriteria();          // 创建一个扩展搜索条件类
         String where = " 1=1 ";   // 创建初始条件为：1=1
         where += getWhere();      // 从方法中获取url 上的参数，并写成 sql条件语句
@@ -55,11 +55,11 @@ public class DifangmeishiController extends BaseController
         }
         int page = request.getParameter("page") == null ? 1 : Integer.valueOf(request.getParameter("page"));  // 获取前台提交的URL参数 page  如果没有则设置为1
         page = Math.max(1 , page);  // 取两个数的最大值，防止page 小于1
-        List<Difangmeishi> list = service.selectPageExample(example , page , pagesize);   // 获取当前页的行数
+        List<Difangfandian> list = service.selectPageExample(example , page , pagesize);   // 获取当前页的行数
 
 
                     assign("jingdianxinxiList" , new CommDAO().select("SELECT * FROM jingdianxinxi ORDER BY id desc"));
-            assign("meishifenleiList" , new CommDAO().select("SELECT * FROM meishifenlei ORDER BY id desc"));
+            assign("fandianfenleiList" , new CommDAO().select("SELECT * FROM fandianfenlei ORDER BY id desc"));
         // 将列表写给界面使用
         assign("totalCount" , request.getAttribute("totalCount"));
         assign("list" , list);
@@ -73,8 +73,8 @@ public class DifangmeishiController extends BaseController
         _var = new LinkedHashMap(); // 重置数据
         String where = " ";
         // 以下也是一样的操作，判断是否符合条件，符合则写入sql 语句
-            if(!Request.get("meishibianhao").equals("")) {
-            where += " AND meishibianhao LIKE '%"+Request.get("meishibianhao")+"%' ";
+            if(!Request.get("fandianbianhao").equals("")) {
+            where += " AND fandianbianhao LIKE '%"+Request.get("fandianbianhao")+"%' ";
         }
                 if(!Request.get("mingcheng").equals("")) {
             where += " AND mingcheng LIKE '%"+Request.get("mingcheng")+"%' ";
@@ -93,13 +93,13 @@ public class DifangmeishiController extends BaseController
     *  前台列表页
     *
     */
-    @RequestMapping("/difangmeishilist")
+    @RequestMapping("/difangfandianlist")
     public String index()
     {
             String order = Request.get("order" , "id");
         String sort  = Request.get("sort" , "desc");
 
-        Example example = new Example(Difangmeishi.class);
+        Example example = new Example(Difangfandian.class);
         Example.Criteria criteria = example.createCriteria();
         String where = " 1=1 ";
                 where += getWhere();
@@ -111,9 +111,9 @@ public class DifangmeishiController extends BaseController
         }
         int page = request.getParameter("page") == null ? 1 : Integer.valueOf(request.getParameter("page"));
         page = Math.max(1 , page);
-                    List<Difangmeishi> list = service.selectPageExample(example , page , 12);
+                    List<Difangfandian> list = service.selectPageExample(example , page , 12);
             
-                assign("mapmeishifenlei5" , new CommDAO().select("SELECT id,fenleimingcheng FROM meishifenlei"));        assign("totalCount" , request.getAttribute("totalCount"));
+                assign("mapfandianfenlei5" , new CommDAO().select("SELECT id,fenleimingcheng FROM fandianfenlei"));        assign("totalCount" , request.getAttribute("totalCount"));
         assign("list" , list);
         assign("where" , where);
         assign("orderby" , order);
@@ -123,42 +123,42 @@ public class DifangmeishiController extends BaseController
 
 
 
-        @RequestMapping("/difangmeishi_add")
+        @RequestMapping("/difangfandian_add")
     public String add()
     {
         _var = new LinkedHashMap(); // 重置数据
 
                     assign("jingdianxinxiList" , new CommDAO().select("SELECT * FROM jingdianxinxi ORDER BY id desc"));
-            assign("meishifenleiList" , new CommDAO().select("SELECT * FROM meishifenlei ORDER BY id desc"));
+            assign("fandianfenleiList" , new CommDAO().select("SELECT * FROM fandianfenlei ORDER BY id desc"));
         return json();   // 将数据写给前端
     }
 
-    @RequestMapping("/difangmeishi_updt")
+    @RequestMapping("/difangfandian_updt")
     public String updt()
     {
         _var = new LinkedHashMap(); // 重置数据
         int id = Request.getInt("id");
         // 获取行数据，并赋值给前台jsp页面
-        Difangmeishi mmm = service.find(id);
+        Difangfandian mmm = service.find(id);
         assign("mmm" , mmm);
         assign("updtself" , 0);
 
                     assign("jingdianxinxiList" , new CommDAO().select("SELECT * FROM jingdianxinxi ORDER BY id desc"));
-            assign("meishifenleiList" , new CommDAO().select("SELECT * FROM meishifenlei ORDER BY id desc"));
+            assign("fandianfenleiList" , new CommDAO().select("SELECT * FROM fandianfenlei ORDER BY id desc"));
         return json();   // 将数据写给前端
     }
     /**
      * 添加内容
      * @return
      */
-    @RequestMapping("/difangmeishiinsert")
+    @RequestMapping("/difangfandianinsert")
     public String insert()
     {
         _var = new LinkedHashMap(); // 重置数据
         String tmp="";
-        Difangmeishi post = new Difangmeishi();  // 创建实体类
+        Difangfandian post = new Difangfandian();  // 创建实体类
         // 设置前台提交上来的数据到实体类中
-        post.setMeishibianhao(Request.get("meishibianhao"));
+        post.setFandianbianhao(Request.get("fandianbianhao"));
 
         post.setMingcheng(Request.get("mingcheng"));
 
@@ -170,7 +170,7 @@ public class DifangmeishiController extends BaseController
 
         post.setJiage(Request.getDouble("jiage"));
 
-        post.setMeishijianjie(Request.get("meishijianjie"));
+        post.setFandianjianjie(Request.get("fandianjianjie"));
 
         post.setAddtime(Info.getDateStr());
     
@@ -192,15 +192,15 @@ public class DifangmeishiController extends BaseController
     * 更新内容
     * @return
     */
-    @RequestMapping("/difangmeishiupdate")
+    @RequestMapping("/difangfandianupdate")
     public String update()
     {
         _var = new LinkedHashMap(); // 重置数据
         // 创建实体类
-        Difangmeishi post = new Difangmeishi();
+        Difangfandian post = new Difangfandian();
         // 将前台表单数据填充到实体类
-        if(!Request.get("meishibianhao").equals(""))
-        post.setMeishibianhao(Request.get("meishibianhao"));
+        if(!Request.get("fandianbianhao").equals(""))
+        post.setFandianbianhao(Request.get("fandianbianhao"));
                 if(!Request.get("mingcheng").equals(""))
         post.setMingcheng(Request.get("mingcheng"));
                 if(!Request.get("fujinjingdian").equals(""))
@@ -211,8 +211,8 @@ public class DifangmeishiController extends BaseController
         post.setTupian(Request.get("tupian"));
                 if(!Request.get("jiage").equals(""))
         post.setJiage(Request.getDouble("jiage"));
-            if(!Request.get("meishijianjie").equals(""))
-        post.setMeishijianjie(Request.get("meishijianjie"));
+            if(!Request.get("fandianjianjie").equals(""))
+        post.setFandianjianjie(Request.get("fandianjianjie"));
                 if(!Request.get("addtime").equals(""))
         post.setAddtime(Request.get("addtime"));
         
@@ -229,24 +229,24 @@ public class DifangmeishiController extends BaseController
     /**
      *  后台详情
      */
-    @RequestMapping("/difangmeishi_detail")
+    @RequestMapping("/difangfandian_detail")
     public String detail()
     {
         _var = new LinkedHashMap(); // 重置数据
         int id = Request.getInt("id");
-        Difangmeishi map = service.find(id);  // 根据前台url 参数中的id获取行数据
+        Difangfandian map = service.find(id);  // 根据前台url 参数中的id获取行数据
         assign("map" , map);  // 把数据写到前台
             return json();   // 将数据写给前端
     }
     /**
      *  前台详情
      */
-    @RequestMapping("/difangmeishidetail")
+    @RequestMapping("/difangfandiandetail")
     public String detailweb()
     {
         _var = new LinkedHashMap(); // 重置数据
         int id = Request.getInt("id");
-        Difangmeishi map = service.find(id);
+        Difangfandian map = service.find(id);
                         
         
         assign("map" , map);
@@ -255,7 +255,7 @@ public class DifangmeishiController extends BaseController
         /**
     *  删除
     */
-    @RequestMapping("/difangmeishi_delete")
+    @RequestMapping("/difangfandian_delete")
     public String delete()
     {
         _var = new LinkedHashMap(); // 重置数据
@@ -263,7 +263,7 @@ public class DifangmeishiController extends BaseController
             return showError("尚未登录");
         }
         int id = Request.getInt("id");  // 根据id 删除某行数据
-        HashMap map = Query.make("difangmeishi").find(id);
+        HashMap map = Query.make("difangfandian").find(id);
 
                 service.delete(id);// 根据id 删除某行数据
                 return showSuccess("删除成功",request.getHeader("referer"));//弹出删除成功，并跳回上一页

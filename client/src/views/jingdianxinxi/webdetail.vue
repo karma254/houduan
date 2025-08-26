@@ -36,10 +36,10 @@
                     </div>
                                     <div>
                         <span class="name">
-                            附近美食：
+                            附近饭店：
                         </span>
                         <span class="val">
-                            {{  map.fujinmeishi  }}                        </span>
+                            {{  map.fujinfandian  }}                        </span>
                     </div>
                                     <div>
                         <span class="name">
@@ -92,7 +92,7 @@
                         suoshudiqu:'',
                         tupian:'',
                         kaifangshijian:'',
-                        fujinmeishi:'',
+                        fujinfandian:'',
                         dizhi:'',
                         piaojia:'',
                         liulanliang:'',

@@ -8,23 +8,23 @@ create table admins
 )
     comment '管理员' charset = utf8mb3;
 
-create table difangmeishi
+create table difangfandian
 (
     id            int unsigned auto_increment
         primary key,
-    meishibianhao varchar(50)                         not null comment '美食编号',
+    fandianbianhao varchar(50)                         not null comment '饭店编号',
     mingcheng     varchar(255)                        not null comment '名称',
     fujinjingdian varchar(255)                        not null comment '附近景点',
     fenlei        int unsigned                        not null comment '分类',
     tupian        text                                not null comment '图片',
     jiage         decimal(18, 2)                      not null comment '价格',
-    meishijianjie text                                not null comment '美食简介',
+    fandianjianjie text                                not null comment '饭店简介',
     addtime       timestamp default CURRENT_TIMESTAMP not null comment '添加时间'
 )
-    comment '地方美食' charset = utf8mb3;
+    comment '地方饭店' charset = utf8mb3;
 
-create index difangmeishi_fenlei_index
-    on difangmeishi (fenlei);
+create index difangfandian_fenlei_index
+    on difangfandian (fenlei);
 
 create table diqu
 (
@@ -44,7 +44,7 @@ create table jingdianxinxi
     suoshudiqu        int unsigned                        not null comment '所属地区',
     tupian            text                                not null comment '图片',
     kaifangshijian    varchar(255)                        not null comment '开放时间',
-    fujinmeishi       text                                not null comment '附近美食',
+    fujinfandian       text                                not null comment '附近饭店',
     dizhi             varchar(255)                        not null comment '地址',
     piaojia           decimal(18, 2)                      not null comment '票价',
     liulanliang       int                                 not null comment '浏览量',
@@ -90,14 +90,14 @@ create table manager
 )
     charset = utf8mb3;
 
-create table meishifenlei
+create table fandianfenlei
 (
     id              int unsigned auto_increment
         primary key,
     fenleimingcheng varchar(255)                        not null comment '分类名称',
     addtime         timestamp default CURRENT_TIMESTAMP not null comment '添加时间'
 )
-    comment '美食分类' charset = utf8mb3;
+    comment '饭店分类' charset = utf8mb3;
 
 create table token
 (

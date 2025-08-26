@@ -1,5 +1,5 @@
 <template>
-    <div class="difangmeishi-detail" v-loading="loading">
+    <div class="difangfandian-detail" v-loading="loading">
         <div>
 <e-container>
             <div  style="margin:10px 0 0 0">
@@ -25,7 +25,7 @@
                             分类：
                         </span>
                         <span class="val">
-                             <e-select-view module="meishifenlei" :value="map.fenlei" select="id" show="fenleimingcheng"></e-select-view>                        </span>
+                             <e-select-view module="fandianfenlei" :value="map.fenlei" select="id" show="fenleimingcheng"></e-select-view>                        </span>
                     </div>
                                     <div>
                         <span class="name">
@@ -36,10 +36,10 @@
                     </div>
                                     <div>
                         <span class="name">
-                            美食简介：
+                            饭店简介：
                         </span>
                         <span class="val">
-                            {{ map.meishijianjie }}                        </span>
+                            {{ map.fandianjianjie }}                        </span>
                     </div>
                             </div>
 
@@ -67,13 +67,13 @@
             return {
                 loading:false,   // 加载
                                 map:{
-                        meishibianhao:'',
+                        fandianbianhao:'',
                         mingcheng:'',
                         fujinjingdian:'',
                         fenlei:'',
                         tupian:'',
                         jiage:'',
-                        meishijianjie:'',
+                        fandianjianjie:'',
                         addtime:'',
                             },
                             }
@@ -98,7 +98,7 @@
             loadDetail(){
                 if(this.loading) return;
                 this.loading = true;
-                this.$get(api.difangmeishi.webdetail , {
+                this.$get(api.difangfandian.webdetail , {
                     id:this.id
                 }).then(res=>{
                     this.loading = false;

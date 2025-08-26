@@ -6,15 +6,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-@Table(name = "difangmeishi")
-public class Difangmeishi implements Serializable {
+@Table(name = "difangfandian")
+public class Difangfandian implements Serializable {
     @GeneratedValue(generator = "JDBC") // 自增的主键映射
     @Id
     @Column(name = "id",insertable=false)
     private Integer id;
 
-    @Column(name = "meishibianhao")
-    private String meishibianhao;
+    @Column(name = "fandianbianhao")
+    private String fandianbianhao;
     @Column(name = "mingcheng")
     private String mingcheng;
     @Column(name = "fujinjingdian")
@@ -25,8 +25,8 @@ public class Difangmeishi implements Serializable {
     private String tupian;
     @Column(name = "jiage")
     private Double jiage;
-    @Column(name = "meishijianjie")
-    private String meishijianjie;
+    @Column(name = "fandianjianjie")
+    private String fandianjianjie;
     @Column(name = "addtime")
     private String addtime;
 
@@ -43,11 +43,11 @@ public class Difangmeishi implements Serializable {
 
 
 
-    public String getMeishibianhao() {
-        return meishibianhao;
+    public String getFandianbianhao() {
+        return fandianbianhao;
     }
-    public void setMeishibianhao(String meishibianhao) {
-        this.meishibianhao = meishibianhao == null ? "" : meishibianhao.trim();
+    public void setFandianbianhao(String fandianbianhao) {
+        this.fandianbianhao = fandianbianhao == null ? "" : fandianbianhao.trim();
     }
 
     public String getMingcheng() {
@@ -85,11 +85,11 @@ public class Difangmeishi implements Serializable {
         this.jiage = jiage == null ? 0.0f : jiage;
     }
 
-    public String getMeishijianjie() {
-        return meishijianjie;
+    public String getFandianjianjie() {
+        return fandianjianjie;
     }
-    public void setMeishijianjie(String meishijianjie) {
-        this.meishijianjie = meishijianjie == null ? "" : meishijianjie.trim();
+    public void setFandianjianjie(String fandianjianjie) {
+        this.fandianjianjie = fandianjianjie == null ? "" : fandianjianjie.trim();
     }
 
     public String getAddtime() {

@@ -5,16 +5,16 @@
         <el-card class="box-card">
             <div slot="header" class="clearfix">
                 <span class="title">
-                地方美食列表
+                地方饭店列表
                 </span>
 
             </div>
             <!-- 搜索 -->
             <div class="form-search">
                 <el-form @submit.prevent.stop :inline="true" size="mini">
-                    <el-form-item label="美食编号">
+                    <el-form-item label="饭店编号">
 
-                        <el-input v-model="search.meishibianhao"></el-input>
+                        <el-input v-model="search.fandianbianhao"></el-input>
 
                     </el-form-item>
                     <el-form-item label="名称">
@@ -35,7 +35,7 @@
 
                         <el-select v-model="search.fenlei">
                             <el-option label="请选择" value=""></el-option>
-                            <el-option v-for="m in meishifenleiList" :value="m.id"
+                            <el-option v-for="m in fandianfenleiList" :value="m.id"
                                        :label="m.fenleimingcheng"></el-option>
                         </el-select>
 
@@ -52,9 +52,9 @@
 
                 <el-table-column type="index" label="#"></el-table-column> <!-- 序号 -->
 
-                <el-table-column label="美食编号" width="130">
+                <el-table-column label="饭店编号" width="130">
                     <template slot-scope="{row}">
-                        {{ row.meishibianhao }}
+                        {{ row.fandianbianhao }}
                     </template>
                 </el-table-column>
                 <el-table-column label="名称">
@@ -69,7 +69,7 @@
                 </el-table-column>
                 <el-table-column label="分类" width="80">
                     <template slot-scope="{row}">
-                        <e-select-view module="meishifenlei" :value="row.fenlei" select="id"
+                        <e-select-view module="fandianfenlei" :value="row.fenlei" select="id"
                                        show="fenleimingcheng"></e-select-view>
                     </template>
                 </el-table-column>
@@ -83,9 +83,9 @@
                         {{ row.jiage }}
                     </template>
                 </el-table-column>
-                <el-table-column label="美食简介">
+                <el-table-column label="饭店简介">
                     <template slot-scope="{row}">
-                        {{ row.meishijianjie }}
+                        {{ row.fandianjianjie }}
                     </template>
                 </el-table-column>
 
@@ -95,12 +95,12 @@
                         <el-button-group>
 
                             <el-tooltip content="详情" placement="top">
-                                <el-button @click="$goto({path:'/admin/difangmeishidetail',query:{id:row.id } })"
+                                <el-button @click="$goto({path:'/admin/difangfandiandetail',query:{id:row.id } })"
                                            icon="el-icon-info" type="info" size="mini"></el-button>
                             </el-tooltip>
                             <el-tooltip content="编辑" placement="top">
                                 <el-button icon="el-icon-edit"
-                                           @click="$goto({path:'/admin/difangmeishiupdt',query:{id:row.id } })"
+                                           @click="$goto({path:'/admin/difangfandianupdt',query:{id:row.id } })"
                                            type="warning" size="mini"></el-button>
                             </el-tooltip>
                             <el-tooltip content="删除" placement="top">
@@ -149,7 +149,7 @@
                 list: [],
                 search: {
 
-                    meishibianhao: '',
+                    fandianbianhao: '',
 
                     mingcheng: '',
 
@@ -164,7 +164,7 @@
                 totalCount: 0, // 总行数
 
                 jingdianxinxiList: [],
-                meishifenleiList: [],
+                fandianfenleiList: [],
 
             }
         },
@@ -195,7 +195,7 @@
                         query: filter
                     });
                 }
-                this.$post(api.difangmeishi.list, filter).then(res => {
+                this.$post(api.difangfandian.list, filter).then(res => {
                     this.loading = false;
                     if (res.code == api.code.OK) {
                         extend(this, res.data);
@@ -214,7 +214,7 @@
                 }).then(() => {// 确定操作
 
                     this.loading = true; // 滚动条
-                    this.$post(api.difangmeishi.delete, {// 提交后台
+                    this.$post(api.difangfandian.delete, {// 提交后台
                         id: row.id
                     }).then(res => {
                         this.loading = false;

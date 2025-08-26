@@ -8,7 +8,7 @@
                                     <result column="suoshudiqu" property="suoshudiqu" jdbcType="VARCHAR"/>
                                     <result column="tupian" property="tupian" jdbcType="VARCHAR"/>
                                     <result column="kaifangshijian" property="kaifangshijian" jdbcType="VARCHAR"/>
-                                    <result column="fujinmeishi" property="fujinmeishi" jdbcType="VARCHAR"/>
+                                    <result column="fujinfandian" property="fujinfandian" jdbcType="VARCHAR"/>
                                     <result column="dizhi" property="dizhi" jdbcType="VARCHAR"/>
                                     <result column="piaojia" property="piaojia" jdbcType="DECIMAL"/>
                                     <result column="liulanliang" property="liulanliang" jdbcType="INTEGER"/>
@@ -17,5 +17,5 @@
                                 
     </resultMap>
     <sql id="Base_Column_List">
-        id, jingdianbianhao, jingdianmingcheng, suoshudiqu, tupian, kaifangshijian, fujinmeishi, dizhi, piaojia, liulanliang, miaoshu, addtime    </sql>
+        id, jingdianbianhao, jingdianmingcheng, suoshudiqu, tupian, kaifangshijian, fujinfandian, dizhi, piaojia, liulanliang, miaoshu, addtime    </sql>
     </mapper>

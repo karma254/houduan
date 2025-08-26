@@ -123,7 +123,7 @@ public class JingdianxinxiController extends BaseController
         _var = new LinkedHashMap(); // 重置数据
 
                     assign("diquList" , new CommDAO().select("SELECT * FROM diqu ORDER BY id desc"));
-            assign("difangmeishiList" , new CommDAO().select("SELECT * FROM difangmeishi ORDER BY id desc"));
+            assign("difangfandianList" , new CommDAO().select("SELECT * FROM difangfandian ORDER BY id desc"));
         return json();   // 将数据写给前端
     }
 
@@ -138,7 +138,7 @@ public class JingdianxinxiController extends BaseController
         assign("updtself" , 0);
 
                     assign("diquList" , new CommDAO().select("SELECT * FROM diqu ORDER BY id desc"));
-            assign("difangmeishiList" , new CommDAO().select("SELECT * FROM difangmeishi ORDER BY id desc"));
+            assign("difangfandianList" , new CommDAO().select("SELECT * FROM difangfandian ORDER BY id desc"));
         return json();   // 将数据写给前端
     }
     /**
@@ -162,7 +162,7 @@ public class JingdianxinxiController extends BaseController
 
         post.setKaifangshijian(Request.get("kaifangshijian"));
 
-        post.setFujinmeishi(Request.get("fujinmeishi"));
+        post.setFujinfandian(Request.get("fujinfandian"));
 
         post.setDizhi(Request.get("dizhi"));
 
@@ -209,8 +209,8 @@ public class JingdianxinxiController extends BaseController
         post.setTupian(Request.get("tupian"));
                 if(!Request.get("kaifangshijian").equals(""))
         post.setKaifangshijian(Request.get("kaifangshijian"));
-                if(!Request.get("fujinmeishi").equals(""))
-        post.setFujinmeishi(Request.get("fujinmeishi"));
+                if(!Request.get("fujinfandian").equals(""))
+        post.setFujinfandian(Request.get("fujinfandian"));
                 if(!Request.get("dizhi").equals(""))
         post.setDizhi(Request.get("dizhi"));
                 if(!Request.get("piaojia").equals(""))

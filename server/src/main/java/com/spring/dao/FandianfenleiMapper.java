@@ -1,10 +1,10 @@
 package com.spring.dao;
 
 import com.base.MapperBase;
-import com.spring.entity.Difangmeishi;
+import com.spring.entity.Fandianfenlei;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface DifangmeishiMapper extends MapperBase<Difangmeishi> {
+public interface FandianfenleiMapper extends MapperBase<Fandianfenlei> {
 }

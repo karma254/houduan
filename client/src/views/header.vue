@@ -59,7 +59,7 @@
 </ul>
 </li>
 <li>
-<router-link to="/difangmeishi">美食信息
+<router-link to="/difangfandian">饭店信息
 </router-link>
 </li>
 <li>

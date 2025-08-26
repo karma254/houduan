@@ -5,7 +5,7 @@
         <el-card class="box-card">
             <div slot="header" class="clearfix">
                 <span class="title">
-                美食分类列表
+                饭店分类列表
                 </span>
 
             </div>
@@ -41,7 +41,7 @@
                     <el-button-group>
                     
                                             <el-tooltip content="编辑" placement="top">
-                    <el-button icon="el-icon-edit" @click="$goto({path:'/admin/meishifenleiupdt',query:{id:row.id } })"
+                    <el-button icon="el-icon-edit" @click="$goto({path:'/admin/fandianfenleiupdt',query:{id:row.id } })"
                                type="warning" size="mini"></el-button>
                         </el-tooltip>
                         <el-tooltip content="删除" placement="top">
@@ -129,7 +129,7 @@
                         query: filter
                     });
                 }
-                this.$post(api.meishifenlei.list , filter).then(res=>{
+                this.$post(api.fandianfenlei.list , filter).then(res=>{
                     this.loading = false;
                     if(res.code == api.code.OK)
                     {
@@ -149,7 +149,7 @@
                 }).then(()=>{// 确定操作
 
                     this.loading = true; // 滚动条
-                    this.$post(api.meishifenlei.delete , {// 提交后台
+                    this.$post(api.fandianfenlei.delete , {// 提交后台
                         id:row.id
                     }).then(res=>{
                         this.loading = false;

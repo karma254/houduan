@@ -1,15 +1,15 @@
 <template>
-    <div class="difangmeishi-add" v-loading="loading">
+    <div class="difangfandian-add" v-loading="loading">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
-                <span class="title"> 添加地方美食</span>
+                <span class="title"> 添加地方饭店</span>
             </div>
             <div class="form-database-form">
 
 
                 <el-form :model="form" ref="formModel" label-width="130px" status-icon validate-on-rule-change>
-                    <el-form-item label="美食编号" prop="meishibianhao" :rules="[{required:true, message:'请填写美食编号'}]">
-                        <el-input placeholder="输入美食编号" style="width:250px;" v-model="form.meishibianhao"/>
+                    <el-form-item label="饭店编号" prop="fandianbianhao" :rules="[{required:true, message:'请填写饭店编号'}]">
+                        <el-input placeholder="输入饭店编号" style="width:250px;" v-model="form.fandianbianhao"/>
                     </el-form-item>
 
                     <el-form-item label="名称" prop="mingcheng">
@@ -25,7 +25,7 @@
 
                     <el-form-item label="分类" prop="fenlei">
                         <el-select v-model="form.fenlei">
-                            <el-option v-for="m in meishifenleiList" :value="m.id"
+                            <el-option v-for="m in fandianfenleiList" :value="m.id"
                                        :label="m.fenleimingcheng"></el-option>
                         </el-select>
                     </el-form-item>
@@ -39,8 +39,8 @@
                         <el-input placeholder="输入人均价格" style="width:250px;" v-model="form.jiage"/>
                     </el-form-item>
 
-                    <el-form-item label="美食简介" prop="meishijianjie">
-                        <el-input type="textarea" v-model="form.meishijianjie"></el-input>
+                    <el-form-item label="饭店简介" prop="fandianjianjie">
+                        <el-input type="textarea" v-model="form.fandianjianjie"></el-input>
                     </el-form-item>
 
                     <el-form-item v-if="btnText">
@@ -53,7 +53,7 @@
     </div>
 </template>
 <style type="text/scss" scoped lang="scss">
-    .difangmeishi-add {
+    .difangfandian-add {
 
     }
 </style>
@@ -64,25 +64,25 @@
 
 
     export default {
-        name: 'difangmeishi-add',
+        name: 'difangfandian-add',
         data() {
             return {
                 rule,
                 loading: false,
                 form: {
-                    meishibianhao: rule.getID(),
+                    fandianbianhao: rule.getID(),
                     mingcheng: '',
                     fujinjingdian: '',
                     fenlei: '',
                     tupian: '',
                     jiage: '',
-                    meishijianjie: '',
+                    fandianjianjie: '',
 
 
                 },
 
                 jingdianxinxiList: [],
-                meishifenleiList: [],
+                fandianfenleiList: [],
 
             }
         },
@@ -106,7 +106,7 @@
                     this.loading = true;
                     var form = this.form;
 
-                    this.$post(api.difangmeishi.insert, form).then(res => {
+                    this.$post(api.difangfandian.insert, form).then(res => {
                         this.loading = false;
                         if (res.code == api.code.OK) {
                             this.$message.success('添加成功');
@@ -131,7 +131,7 @@
                 var form = this.form;
                 // 获取模块得数据
                 this.loading = true;
-                this.$post(api.difangmeishi.create, {
+                this.$post(api.difangfandian.create, {
                     id: this.$route.query.id
                 }).then(res => {
                     this.loading = false;

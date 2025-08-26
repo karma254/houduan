@@ -1,8 +1,8 @@
 package com.spring.controller;
 
-import com.spring.dao.MeishifenleiMapper;
-import com.spring.entity.Meishifenlei;
-import com.spring.service.MeishifenleiService;
+import com.spring.dao.FandianfenleiMapper;
+import com.spring.entity.Fandianfenlei;
+import com.spring.service.FandianfenleiService;
 import dao.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,20 +17,20 @@ import java.util.List;
 
 
 /**
- * 美食分类 */
+ * 饭店分类 */
 @Controller
-public class MeishifenleiController extends BaseController
+public class FandianfenleiController extends BaseController
 {
     @Autowired
-    private MeishifenleiMapper dao;
+    private FandianfenleiMapper dao;
     @Autowired
-    private MeishifenleiService service;
+    private FandianfenleiService service;
 
     /**
      *  后台列表页
      *
      */
-    @RequestMapping("/meishifenlei_list")
+    @RequestMapping("/fandianfenlei_list")
     public String list()
     {
 
@@ -42,7 +42,7 @@ public class MeishifenleiController extends BaseController
         String order = Request.get("order" , "id"); // 获取前台提交的URL参数 order  如果没有则设置为id
         String sort  = Request.get("sort" , "desc"); // 获取前台提交的URL参数 sort  如果没有则设置为desc
         int    pagesize = Request.getInt("pagesize" , 12); // 获取前台一页多少行数据
-        Example example = new Example(Meishifenlei.class); //  创建一个扩展搜索类
+        Example example = new Example(Fandianfenlei.class); //  创建一个扩展搜索类
         Example.Criteria criteria = example.createCriteria();          // 创建一个扩展搜索条件类
         String where = " 1=1 ";   // 创建初始条件为：1=1
         where += getWhere();      // 从方法中获取url 上的参数，并写成 sql条件语句
@@ -54,7 +54,7 @@ public class MeishifenleiController extends BaseController
         }
         int page = request.getParameter("page") == null ? 1 : Integer.valueOf(request.getParameter("page"));  // 获取前台提交的URL参数 page  如果没有则设置为1
         page = Math.max(1 , page);  // 取两个数的最大值，防止page 小于1
-        List<Meishifenlei> list = service.selectPageExample(example , page , pagesize);   // 获取当前页的行数
+        List<Fandianfenlei> list = service.selectPageExample(example , page , pagesize);   // 获取当前页的行数
 
 
         
@@ -81,7 +81,7 @@ public class MeishifenleiController extends BaseController
 
 
 
-        @RequestMapping("/meishifenlei_add")
+        @RequestMapping("/fandianfenlei_add")
     public String add()
     {
         _var = new LinkedHashMap(); // 重置数据
@@ -90,13 +90,13 @@ public class MeishifenleiController extends BaseController
         return json();   // 将数据写给前端
     }
 
-    @RequestMapping("/meishifenlei_updt")
+    @RequestMapping("/fandianfenlei_updt")
     public String updt()
     {
         _var = new LinkedHashMap(); // 重置数据
         int id = Request.getInt("id");
         // 获取行数据，并赋值给前台jsp页面
-        Meishifenlei mmm = service.find(id);
+        Fandianfenlei mmm = service.find(id);
         assign("mmm" , mmm);
         assign("updtself" , 0);
 
@@ -107,12 +107,12 @@ public class MeishifenleiController extends BaseController
      * 添加内容
      * @return
      */
-    @RequestMapping("/meishifenleiinsert")
+    @RequestMapping("/fandianfenleiinsert")
     public String insert()
     {
         _var = new LinkedHashMap(); // 重置数据
         String tmp="";
-        Meishifenlei post = new Meishifenlei();  // 创建实体类
+        Fandianfenlei post = new Fandianfenlei();  // 创建实体类
         // 设置前台提交上来的数据到实体类中
         post.setFenleimingcheng(Request.get("fenleimingcheng"));
 
@@ -136,12 +136,12 @@ public class MeishifenleiController extends BaseController
     * 更新内容
     * @return
     */
-    @RequestMapping("/meishifenleiupdate")
+    @RequestMapping("/fandianfenleiupdate")
     public String update()
     {
         _var = new LinkedHashMap(); // 重置数据
         // 创建实体类
-        Meishifenlei post = new Meishifenlei();
+        Fandianfenlei post = new Fandianfenlei();
         // 将前台表单数据填充到实体类
         if(!Request.get("fenleimingcheng").equals(""))
         post.setFenleimingcheng(Request.get("fenleimingcheng"));
@@ -161,7 +161,7 @@ public class MeishifenleiController extends BaseController
         /**
     *  删除
     */
-    @RequestMapping("/meishifenlei_delete")
+    @RequestMapping("/fandianfenlei_delete")
     public String delete()
     {
         _var = new LinkedHashMap(); // 重置数据
@@ -169,7 +169,7 @@ public class MeishifenleiController extends BaseController
             return showError("尚未登录");
         }
         int id = Request.getInt("id");  // 根据id 删除某行数据
-        HashMap map = Query.make("meishifenlei").find(id);
+        HashMap map = Query.make("fandianfenlei").find(id);
 
                 service.delete(id);// 根据id 删除某行数据
                 return showSuccess("删除成功",request.getHeader("referer"));//弹出删除成功，并跳回上一页

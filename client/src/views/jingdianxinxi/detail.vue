@@ -41,10 +41,10 @@
                 </div>
             </div>                                                <div class="detail detail-selectmul">
                 <div class="detail-title">
-                    附近美食：
+                    附近饭店：
                 </div>
                 <div class="detail-content">
-                    {{  map.fujinmeishi  }}
+                    {{  map.fujinfandian  }}
                 </div>
             </div>                        <div class="detail detail-money">
                 <div class="detail-title">

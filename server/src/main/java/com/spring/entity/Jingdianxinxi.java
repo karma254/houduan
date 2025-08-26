@@ -23,8 +23,8 @@ public class Jingdianxinxi implements Serializable {
     private String tupian;
     @Column(name = "kaifangshijian")
     private String kaifangshijian;
-    @Column(name = "fujinmeishi")
-    private String fujinmeishi;
+    @Column(name = "fujinfandian")
+    private String fujinfandian;
     @Column(name = "dizhi")
     private String dizhi;
     @Column(name = "piaojia")
@@ -84,11 +84,11 @@ public class Jingdianxinxi implements Serializable {
         this.kaifangshijian = kaifangshijian == null ? "" : kaifangshijian.trim();
     }
 
-    public String getFujinmeishi() {
-        return fujinmeishi;
+    public String getFujinfandian() {
+        return fujinfandian;
     }
-    public void setFujinmeishi(String fujinmeishi) {
-        this.fujinmeishi = fujinmeishi == null ? "" : fujinmeishi.trim();
+    public void setFujinfandian(String fujinfandian) {
+        this.fujinfandian = fujinfandian == null ? "" : fujinfandian.trim();
     }
 
     public String getDizhi() {

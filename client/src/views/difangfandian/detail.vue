@@ -1,15 +1,15 @@
 <template>
     
-    <div class="difangmeishi-detail" v-loading="loading" ref="print">
+    <div class="difangfandian-detail" v-loading="loading" ref="print">
         <el-page-header @back="goBack" content="详情页面"></el-page-header>
         <div class="admin-detail">
 
                         <div class="detail detail-text">
                 <div class="detail-title">
-                    美食编号：
+                    饭店编号：
                 </div>
                 <div class="detail-content">
-                    {{ map.meishibianhao }}
+                    {{ map.fandianbianhao }}
                 </div>
             </div>                        <div class="detail detail-longtext">
                 <div class="detail-title">
@@ -30,7 +30,7 @@
                     分类：
                 </div>
                 <div class="detail-content">
-                     <e-select-view module="meishifenlei" :value="map.fenlei" select="id" show="fenleimingcheng"></e-select-view>
+                     <e-select-view module="fandianfenlei" :value="map.fenlei" select="id" show="fenleimingcheng"></e-select-view>
                 </div>
             </div>                                                <div class="detail detail-money">
                 <div class="detail-title">
@@ -41,10 +41,10 @@
                 </div>
             </div>                        <div class="detail detail-textarea">
                 <div class="detail-title">
-                    美食简介：
+                    饭店简介：
                 </div>
                 <div class="detail-content">
-                    {{ map.meishijianjie }}
+                    {{ map.fandianjianjie }}
                 </div>
             </div>                        <div class="detail detail-autotime">
                 <div class="detail-title">
@@ -74,7 +74,7 @@
     </div>
 </template>
 <style type="text/scss" scoped lang="scss">
-.difangmeishi-detail{
+.difangfandian-detail{
     .admin-detail {
         display: flex;
         flex-wrap: wrap;
@@ -160,7 +160,7 @@
             loadDetail(){
                 if(this.loading) return;
                 this.loading = true;
-                this.$get(api.difangmeishi.detail , {
+                this.$get(api.difangfandian.detail , {
                     id:this.id
                 }).then(res=>{
                     this.loading = false;

@@ -1,8 +1,8 @@
 <template>
-    <div class="meishifenlei-add" v-loading="loading">
+    <div class="fandianfenlei-add" v-loading="loading">
         <el-card class="box-card">
             <div slot="header" class="clearfix updt">
-                                    <el-page-header @back="$router.go(-1)" content="编辑美食分类">
+                                    <el-page-header @back="$router.go(-1)" content="编辑饭店分类">
                     </el-page-header>
                             </div>
             <div class="form-database-form">
@@ -22,7 +22,7 @@
     </div>
 </template>
 <style type="text/scss" scoped lang="scss">
-.meishifenlei-add{
+.fandianfenlei-add{
 
 }
 </style>
@@ -33,7 +33,7 @@
 
     
     export default {
-        name:'meishifenlei-add',
+        name:'fandianfenlei-add',
         data() {
             return {
                                 rule,
@@ -77,7 +77,7 @@
                     this.loading = true;
                     var form = this.form;
 
-                    this.$post(api.meishifenlei.update , form).then(res=>{
+                    this.$post(api.fandianfenlei.update , form).then(res=>{
                         this.loading = false;
                         if(res.code == api.code.OK){
                             this.$message.success('添加成功');
@@ -102,7 +102,7 @@
                                 // 更新数据,获取数据
                 this.loading = true;
                 var form = this.form;
-                this.$post(api.meishifenlei.edit , {
+                this.$post(api.fandianfenlei.edit , {
                     id:this.id
                 }).then(res=>{
                     this.loading = false;
