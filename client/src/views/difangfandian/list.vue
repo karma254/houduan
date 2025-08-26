@@ -98,9 +98,14 @@
                                 <el-button @click="$goto({path:'/admin/difangfandiandetail',query:{id:row.id } })"
                                            icon="el-icon-info" type="info" size="mini"></el-button>
                             </el-tooltip>
-                            <el-tooltip content="编辑" placement="top">
+                            <el-tooltip content="编辑饭店信息" placement="top">
                                 <el-button icon="el-icon-edit"
                                            @click="$goto({path:'/admin/difangfandianupdt',query:{id:row.id } })"
+                                           type="warning" size="mini"></el-button>
+                            </el-tooltip>
+                            <el-tooltip content="编辑档案信息" placement="top">
+                                <el-button icon="el-icon-edit"
+                                           @click="$goto({path:'/admin/dangan',query:{leibie: '饭店',relativeId: row.id } })"
                                            type="warning" size="mini"></el-button>
                             </el-tooltip>
                             <el-tooltip content="删除" placement="top">
