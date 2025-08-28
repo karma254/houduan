@@ -170,6 +170,24 @@ const api = {
                 create:"fandianfenlei_add.do",
                 edit:"fandianfenlei_updt.do",
             },
+    daoyou:{
+        list: "daoyou_list",
+        insert: "daoyou_add",
+        update: "daoyou_update",
+        detail: "daoyou_detail",
+        create: "daoyou_add",
+        delete: "daoyou_delete"
+
+    },
+    luyou: {
+        page: "luyou/page",
+        add: "luyou/add",
+        update: "luyou/update",
+        delete: "luyou/delete",
+        detail: "luyou/detail"
     }
+
+}
+
 
 export default api

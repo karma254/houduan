@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.dao.LuyouMapper">
+
+    <resultMap type="com.spring.entity.Luyou" id="LuyouMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="duration" column="duration"/>
+        <result property="difficulty" column="difficulty"/>
+        <result property="scenicSpots" column="scenic_spots"/>
+        <result property="price" column="price"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="LuyouMap">
+        select id, name, description, duration, difficulty, scenic_spots, price, create_time, update_time
+        from luyou
+        where id = #{id}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="LuyouMap">
+        select id, name, description, duration, difficulty, scenic_spots, price, create_time, update_time
+        from luyou
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%', #{name}, '%')
+            </if>
+            <if test="difficulty != null and difficulty != ''">
+                and difficulty = #{difficulty}
+            </if>
+        </where>
+        order by create_time desc
+        <if test="pageStart != null and pageSize != null">
+            limit #{pageStart}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="count" resultType="long">
+        select count(*) from luyou
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%', #{name}, '%')
+            </if>
+            <if test="difficulty != null and difficulty != ''">
+                and difficulty = #{difficulty}
+            </if>
+        </where>
+    </select>
+</mapper>

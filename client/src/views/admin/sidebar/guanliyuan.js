@@ -115,7 +115,45 @@ export default [
             },
         ]
     },
+    {
+        label: '导游管理',
+        to: '',
+        children: [
+            {
+                label: '导游添加',
+                to: '/admin/daoyouadd',
+            },
+            {
+                label: '导游查询',
+                to: '/admin/daoyoulist',
+            },
+            {
+                label: '导游修改',
+                to: '/admin/daoyouupdt',
+            },
+            {
+                laber:'导游管理',
+                to:'/admin/DaoyouManne',
 
+            },
+        ]
+    },
+    {
+        label: '路线管理',
+        to: '',
+        children: [
+            {
+                label: '路线添加',
+                to: '/admin/luyouadd',
+            },
+            {
+                label: '路线查询',
+                to: '/admin/luyoulist',
+            },
+
+
+        ]
+    },
 
 
         {
@@ -136,4 +174,5 @@ export default [
             },
                     ]
     },
+
     ]

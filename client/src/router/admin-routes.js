@@ -280,4 +280,60 @@ export default [
     component: () => import("@/views/fandianfenlei/updt"),
     meta: { title:"编辑饭店分类",authLogin:true }
 },
+    {
+        path:"daoyoulist",
+        name:"Admindaoyou",
+        props:route=>({id:route.query.id}),
+        component: () => import('@/views/daoyou/list')
+
+    },
+
+    {
+        path: "daoyouadd",
+        name: "AdmindaoyouAdd",
+        component: () => import("@/views/daoyou/add"),
+        meta: { title: "添加导游", authLogin: true }
+    },
+
+    {
+        path: "daoyouupdt",
+        name: "AdmindaoyouUpdt",
+        props: route => ({ id: route.query.id }),
+        component: () => import("@/views/daoyou/updt"),
+        meta: { title: "编辑导游", authLogin: true }
+    },
+
+    {
+        path: "luyouadd",
+        name: "AdminLuyouAdd",
+        component: () => import("@/views/luyou/add"),
+        meta: { title: "添加路线", authLogin: true }
+    },
+    {
+        path: 'luyoulist',
+        name: 'AdminLuyouList',
+        component: () => import('@/views/luyou/list'),
+        meta: { title: '路线管理' }
+    },
+
+    {
+        path: "daoyou/yonghu_list", // 添加路径分隔符
+        name: "AdminDaoyouYonghuList", // 使用驼峰命名
+        meta: {
+            title: "用户导游列表",
+            authLogin: true
+        },
+        component: () => import("@/views/daoyou/yonghu_list")
+
+    },
+    {
+        path: "luyou/yonghu_list", // 添加路径分隔符
+        name: "AdminluyouYonghuList", // 使用驼峰命名
+        meta: {
+            title: "用户路线列表",
+            authLogin: true
+        },
+        component: () => import("@/views/luyou/yonghu_list")
+
+    },
 ]
